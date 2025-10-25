@@ -1,4 +1,4 @@
-﻿# HTF25-Team-274
+# HTF25-Team-274
 
 ## GitHub submission guide
 
