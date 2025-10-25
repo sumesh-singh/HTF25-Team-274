@@ -1,0 +1,57 @@
+version: "3.8"
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: skillsync-postgres
+    environment:
+      POSTGRES_DB: skillsync_dev
+      POSTGRES_USER: skillsync
+      POSTGRES_PASSWORD: skillsync_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/prisma/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - skillsync-network
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: skillsync-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - skillsync-network
+
+  # Backend API (for production)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: skillsync-backend
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://skillsync:skillsync_password@postgres:5432/skillsync_dev
+      - REDIS_URL=redis://redis:6379
+    ports:
+      - "3001:3001"
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - skillsync-network
+    profiles:
+      - production
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  skillsync-network:
+    driver: bridge

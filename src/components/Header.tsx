@@ -1,10 +1,39 @@
-import { Search, Bell, Menu } from 'lucide-react';
-import { useState } from 'react';
+import { Search, Bell, Menu, User, Settings, CreditCard, LogOut, ChevronDown } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
+  
+  const profileRef = useRef<HTMLDivElement>(null);
+  const notificationsRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (profileRef.current && !profileRef.current.contains(event.target as Node)) {
+        setIsProfileOpen(false);
+      }
+      if (notificationsRef.current && !notificationsRef.current.contains(event.target as Node)) {
+        setIsNotificationsOpen(false);
+      }
+    };
+
+    const handleEscapeKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsProfileOpen(false);
+        setIsNotificationsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleEscapeKey);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscapeKey);
+    };
+  }, []);
   const navLinks = [
     { name: 'Dashboard', path: '/' },
     { name: 'Discover', path: '/discover' },
@@ -45,20 +74,124 @@ const Header = () => {
       </nav>
 
       <div className="flex flex-1 items-center justify-end gap-3">
-        <div className="hidden lg:flex relative h-10 w-full max-w-64">
-          <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
-            <Search className="h-5 w-5 text-text-light-secondary dark:text-text-dark-secondary" />
-          </div>
-          <input
-            className="h-full w-full rounded-full border border-border-light bg-card-light pl-11 pr-4 text-sm text-text-light-primary placeholder:text-text-light-secondary focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/50 dark:border-border-dark dark:bg-card-dark dark:text-text-dark-primary dark:placeholder:text-text-dark-secondary"
-            placeholder="Search"
-            type="search"
-          />
+        <div className="relative" ref={notificationsRef}>
+          <button
+            onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
+            aria-label="Notifications"
+            aria-expanded={isNotificationsOpen}
+            aria-haspopup="true"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-border-light bg-card-light text-text-light-secondary transition-colors hover:bg-primary/10 hover:text-primary dark:border-border-dark dark:bg-card-dark dark:text-text-dark-secondary dark:hover:bg-primary/10 dark:hover:text-primary"
+          >
+            <Bell className="h-6 w-6" />
+            <span className="absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-xs font-medium text-white" aria-label="3 unread notifications">3</span>
+          </button>          />
         </div>
-        <NavLink to="/notifications" className="flex h-10 w-10 items-center justify-center rounded-full border border-border-light bg-card-light text-text-light-secondary transition-colors hover:bg-primary/10 hover:text-primary dark:border-border-dark dark:bg-card-dark dark:text-text-dark-secondary dark:hover:bg-primary/10 dark:hover:text-primary">
-          <Bell className="h-6 w-6" />
-        </NavLink>
-        <NavLink to="/profile/me" className="h-10 w-10 rounded-full bg-cover bg-center" style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuDJQoTWf2ywkvBOj1KI3D3xGYAHE6vh80rPjYDXNtzfZDYnFWAdjFL_N0SyTR8iXfwfYxI8k1e6kSvkc9rDvo9XZe0m-Y4wSrYGljDUC6vC16gfSskxPlebVL13N6CdQbV339-r56aM9CNMUBxvGirl_n-Aml5R6Y73lNAZBmrnUBvB0k4209Otc8Wy3TiETadFnP1GqQ3f-U3OP11x8RFddQa9ehWZhIjgi5ybjLm7ieSXe05Ik8UGoq1091fBuVC9hFjvdvKgTmpI')" }}></NavLink>
+        <div className="relative" ref={notificationsRef}>
+          <button
+            id="notifications-menu-button"
+            onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
+            aria-haspopup="true"
+            aria-expanded={isNotificationsOpen}
+            aria-controls="notifications-menu"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-border-light bg-card-light text-text-light-secondary transition-colors hover:bg-primary/10 hover:text-primary dark:border-border-dark dark:bg-card-dark dark:text-text-dark-secondary dark:hover:bg-primary/10 dark:hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+          >
+            <Bell className="h-6 w-6" />
+            <span className="absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-xs font-medium text-white">3</span>
+          </button>
+          
+          {isNotificationsOpen && (
+            <div 
+              id="notifications-menu"
+              role="menu"
+              aria-labelledby="notifications-menu-button"
+              className="absolute right-0 mt-2 w-80 origin-top-right rounded-xl border border-border-light bg-card-light p-4 shadow-lg dark:border-border-dark dark:bg-card-dark"
+            >
+              <div className="mb-4 flex items-center justify-between">
+                <h3 className="text-lg font-semibold" id="notifications-title">Notifications</h3>
+                <NavLink 
+                  to="/notifications" 
+                  className="text-sm text-primary hover:underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded"
+                  role="menuitem"
+                >
+                  View all
+                </NavLink>
+              </div>
+              <ul className="notification-feed space-y-4" role="menu" aria-labelledby="notifications-title">
+                <li 
+                  role="menuitem" 
+                  tabIndex={0}
+                  className="flex gap-3 rounded-lg p-2 hover:bg-primary/5 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 cursor-pointer"
+                  onClick={() => {/* Add handler */}}
+                  onKeyDown={(e) => e.key === 'Enter' && {/* Add handler */}}
+                >
+                  <div className="h-10 w-10 flex-shrink-0 rounded-full bg-primary/10"></div>
+                  <div>
+                    <p className="text-sm">
+                      <span className="font-semibold">John Doe</span> wants to connect for a skill exchange session
+                    </p>
+                    <span className="text-xs text-text-light-secondary dark:text-text-dark-secondary">2 minutes ago</span>
+                  </div>
+                </li>
+                <li 
+                  role="menuitem" 
+                  tabIndex={0}
+                  className="flex gap-3 rounded-lg p-2 hover:bg-primary/5 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 cursor-pointer"
+                  onClick={() => {/* Add handler */}}
+                  onKeyDown={(e) => e.key === 'Enter' && {/* Add handler */}}
+                >
+                  <div className="h-10 w-10 flex-shrink-0 rounded-full bg-secondary/10"></div>
+                  <div>
+                    <p className="text-sm">
+                      Your session with <span className="font-semibold">Alice Smith</span> is in 30 minutes
+                    </p>
+                    <span className="text-xs text-text-light-secondary dark:text-text-dark-secondary">15 minutes ago</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          {isProfileOpen && (
+            <div 
+              role="menu"
+              aria-label="User menu"
+              className="absolute right-0 mt-2 w-56 origin-top-right rounded-xl border border-border-light bg-card-light p-1 shadow-lg dark:border-border-dark dark:bg-card-dark"
+            >
+              <div className="mb-2 border-b border-border-light p-3 dark:border-border-dark">
+                <div className="text-sm font-semibold">Jane Cooper</div>
+                <div className="text-xs text-text-light-secondary dark:text-text-dark-secondary">jane@example.com</div>
+              </div>
+              <NavLink to="/profile/me" className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-colors hover:bg-primary/5">
+                <User className="h-4 w-4" /> Profile
+              </NavLink>
+              <NavLink to="/credits" className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-colors hover:bg-primary/5">
+                <CreditCard className="h-4 w-4" /> Credits
+              </NavLink>
+              <NavLink to="/settings" className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-colors hover:bg-primary/5">
+                <Settings className="h-4 w-4" /> Settings
+              </NavLink>
+              <div className="my-1 border-t border-border-light dark:border-border-dark"></div>
+              <button className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-red-500 transition-colors hover:bg-red-500/5">
+                <LogOut className="h-4 w-4" /> Sign out
+              </button>
+            </div>
+          )}  className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-red-500 transition-colors hover:bg-red-500/5"
+>
+  <LogOut className="h-4 w-4" /> Sign out
+</button>                <User className="h-4 w-4" /> Profile
+              </NavLink>
+              <NavLink to="/credits" className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-colors hover:bg-primary/5">
+                <CreditCard className="h-4 w-4" /> Credits
+              </NavLink>
+              <NavLink to="/settings" className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-colors hover:bg-primary/5">
+                <Settings className="h-4 w-4" /> Settings
+              </NavLink>
+              <div className="my-1 border-t border-border-light dark:border-border-dark"></div>
+              <button className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-red-500 transition-colors hover:bg-red-500/5">
+                <LogOut className="h-4 w-4" /> Sign out
+              </button>
+            </div>
+          )}
+        </div>
+
         <button
           className="flex h-10 w-10 items-center justify-center rounded-full border border-border-light bg-card-light text-text-light-secondary transition-colors hover:bg-primary/10 hover:text-primary dark:border-border-dark dark:bg-card-dark dark:text-text-dark-secondary dark:hover:bg-primary/10 dark:hover:text-primary md:hidden"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -68,7 +201,7 @@ const Header = () => {
       </div>
       
       {isMenuOpen && (
-        <div className="absolute top-full left-0 w-full bg-card-light dark:bg-card-dark border-t border-border-light dark:border-border-dark md:hidden">
+        <div className="absolute top-full left-0 w-full animate-slide-in-right border-t border-border-light bg-card-light dark:border-border-dark dark:bg-card-dark md:hidden">
           <nav className="flex flex-col p-4">
             {navLinks.map((link) => (
               <NavLink

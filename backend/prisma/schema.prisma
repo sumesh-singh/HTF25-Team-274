@@ -1,0 +1,388 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String   @id @default(uuid())
+  email         String   @unique
+  passwordHash  String   @map("password_hash")
+  firstName     String   @map("first_name")
+  lastName      String   @map("last_name")
+  avatar        String?
+  bio           String?
+  location      String?
+  timezone      String   @default("UTC")
+  isVerified    Boolean  @default(false) @map("is_verified")
+  rating        Decimal  @default(0.00) @db.Decimal(3, 2)
+  totalSessions Int      @default(0) @map("total_sessions")
+  creditBalance Int      @default(50) @map("credit_balance")
+  passwordResetToken String? @map("password_reset_token")
+  passwordResetExpires DateTime? @map("password_reset_expires")
+  emailVerificationToken String? @map("email_verification_token")
+  emailVerificationExpires DateTime? @map("email_verification_expires")
+  joinedAt      DateTime @default(now()) @map("joined_at")
+  lastActive    DateTime @default(now()) @map("last_active")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  skills              UserSkill[]
+  availability        Availability[]
+  preferences         UserPreferences?
+  teachingSessions    Session[]           @relation("TeacherSessions")
+  learningSessions    Session[]           @relation("LearnerSessions")
+  sentMessages        Message[]           @relation("SentMessages")
+  conversations       ConversationUser[]
+  creditTransactions  CreditTransaction[]
+  notifications       Notification[]
+  sessionRatings      SessionRating[]
+  skillVerifications  SkillVerification[] @relation("VerifiedBy")
+  skillVerificationRequests SkillVerification[] @relation("RequestedBy")
+  matchInteractions   MatchInteraction[]
+  refreshTokens       RefreshToken[]
+
+  @@map("users")
+}
+
+model Skill {
+  id          String        @id @default(uuid())
+  name        String        @unique
+  category    SkillCategory
+  description String?
+  isActive    Boolean       @default(true) @map("is_active")
+  createdAt   DateTime      @default(now()) @map("created_at")
+
+  // Relations
+  userSkills        UserSkill[]
+  sessions          Session[]
+  skillVerifications SkillVerification[]
+
+  @@map("skills")
+}
+
+model UserSkill {
+  id                 String  @id @default(uuid())
+  userId             String  @map("user_id")
+  skillId            String  @map("skill_id")
+  proficiencyLevel   Int     @map("proficiency_level") // 0-100
+  canTeach           Boolean @default(false) @map("can_teach")
+  wantsToLearn       Boolean @default(false) @map("wants_to_learn")
+  isVerified         Boolean @default(false) @map("is_verified")
+  verificationCount  Int     @default(0) @map("verification_count")
+  createdAt          DateTime @default(now()) @map("created_at")
+  updatedAt          DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  skill Skill @relation(fields: [skillId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, skillId])
+  @@map("user_skills")
+}
+
+model Availability {
+  id        String    @id @default(uuid())
+  userId    String    @map("user_id")
+  dayOfWeek Int       @map("day_of_week") // 0-6 (Sunday-Saturday)
+  startTime String    @map("start_time") // HH:MM format
+  endTime   String    @map("end_time")   // HH:MM format
+  timezone  String
+  isActive  Boolean   @default(true) @map("is_active")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("availability")
+}
+
+model UserPreferences {
+  id                    String  @id @default(uuid())
+  userId                String  @unique @map("user_id")
+  emailNotifications    Boolean @default(true) @map("email_notifications")
+  pushNotifications     Boolean @default(true) @map("push_notifications")
+  sessionReminders      Boolean @default(true) @map("session_reminders")
+  matchSuggestions      Boolean @default(true) @map("match_suggestions")
+  messageNotifications  Boolean @default(true) @map("message_notifications")
+  creditNotifications   Boolean @default(true) @map("credit_notifications")
+  systemNotifications   Boolean @default(true) @map("system_notifications")
+  createdAt             DateTime @default(now()) @map("created_at")
+  updatedAt             DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_preferences")
+}
+
+model Session {
+  id          String        @id @default(uuid())
+  teacherId   String        @map("teacher_id")
+  learnerId   String        @map("learner_id")
+  skillId     String        @map("skill_id")
+  title       String
+  description String?
+  scheduledAt DateTime      @map("scheduled_at")
+  duration    Int           // minutes
+  status      SessionStatus @default(PENDING)
+  type        SessionType   @default(ONE_TIME)
+  videoLink   String?       @map("video_link")
+  creditCost  Int           @map("credit_cost")
+  createdAt   DateTime      @default(now()) @map("created_at")
+  updatedAt   DateTime      @updatedAt @map("updated_at")
+
+  // Relations
+  teacher User  @relation("TeacherSessions", fields: [teacherId], references: [id], onDelete: Cascade)
+  learner User  @relation("LearnerSessions", fields: [learnerId], references: [id], onDelete: Cascade)
+  skill   Skill @relation(fields: [skillId], references: [id])
+  ratings SessionRating[]
+  creditTransactions CreditTransaction[]
+
+  @@map("sessions")
+}
+
+model SessionRating {
+  id                   String   @id @default(uuid())
+  sessionId            String   @map("session_id")
+  raterId              String   @map("rater_id")
+  knowledgeRating      Int      @map("knowledge_rating") // 1-5
+  communicationRating  Int      @map("communication_rating") // 1-5
+  professionalismRating Int     @map("professionalism_rating") // 1-5
+  feedback             String?
+  createdAt            DateTime @default(now()) @map("created_at")
+
+  // Relations
+  session Session @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  rater   User    @relation(fields: [raterId], references: [id], onDelete: Cascade)
+
+  @@unique([sessionId, raterId])
+  @@map("session_ratings")
+}
+
+model Conversation {
+  id        String   @id @default(uuid())
+  title     String?
+  isGroup   Boolean  @default(false) @map("is_group")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  participants ConversationUser[]
+  messages     Message[]
+
+  @@map("conversations")
+}
+
+model ConversationUser {
+  id             String    @id @default(uuid())
+  conversationId String    @map("conversation_id")
+  userId         String    @map("user_id")
+  joinedAt       DateTime  @default(now()) @map("joined_at")
+  lastReadAt     DateTime? @map("last_read_at")
+  isActive       Boolean   @default(true) @map("is_active")
+
+  // Relations
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([conversationId, userId])
+  @@map("conversation_users")
+}
+
+model Message {
+  id             String      @id @default(uuid())
+  conversationId String      @map("conversation_id")
+  senderId       String      @map("sender_id")
+  content        String
+  type           MessageType @default(TEXT)
+  sentAt         DateTime    @default(now()) @map("sent_at")
+  readAt         DateTime?   @map("read_at")
+  editedAt       DateTime?   @map("edited_at")
+  createdAt      DateTime    @default(now()) @map("created_at")
+  updatedAt      DateTime    @updatedAt @map("updated_at")
+
+  // Relations
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  sender       User         @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
+  attachments  Attachment[]
+
+  @@map("messages")
+}
+
+model Attachment {
+  id           String   @id @default(uuid())
+  messageId    String   @map("message_id")
+  filename     String
+  originalName String   @map("original_name")
+  mimeType     String   @map("mime_type")
+  size         Int
+  url          String
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  // Relations
+  message Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
+
+  @@map("attachments")
+}
+
+model CreditTransaction {
+  id              String          @id @default(uuid())
+  userId          String          @map("user_id")
+  type            TransactionType
+  amount          Int
+  description     String
+  sessionId       String?         @map("session_id")
+  stripePaymentId String?         @map("stripe_payment_id")
+  createdAt       DateTime        @default(now()) @map("created_at")
+
+  // Relations
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  session Session? @relation(fields: [sessionId], references: [id])
+
+  @@map("credit_transactions")
+}
+
+model Notification {
+  id        String            @id @default(uuid())
+  userId    String            @map("user_id")
+  type      NotificationType
+  title     String
+  message   String
+  data      Json?
+  isRead    Boolean           @default(false) @map("is_read")
+  createdAt DateTime          @default(now()) @map("created_at")
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
+}
+
+model SkillVerification {
+  id          String                   @id @default(uuid())
+  requesterId String                   @map("requester_id")
+  verifierId  String                   @map("verifier_id")
+  skillId     String                   @map("skill_id")
+  status      SkillVerificationStatus  @default(PENDING)
+  feedback    String?
+  createdAt   DateTime                 @default(now()) @map("created_at")
+  updatedAt   DateTime                 @updatedAt @map("updated_at")
+
+  // Relations
+  requester User  @relation("RequestedBy", fields: [requesterId], references: [id], onDelete: Cascade)
+  verifier  User  @relation("VerifiedBy", fields: [verifierId], references: [id], onDelete: Cascade)
+  skill     Skill @relation(fields: [skillId], references: [id])
+
+  @@unique([requesterId, verifierId, skillId])
+  @@map("skill_verifications")
+}
+
+model MatchInteraction {
+  id             String              @id @default(uuid())
+  userId         String              @map("user_id")
+  targetUserId   String              @map("target_user_id")
+  type           MatchInteractionType
+  matchScore     Decimal?            @map("match_score") @db.Decimal(5, 2)
+  explanation    String?
+  createdAt      DateTime            @default(now()) @map("created_at")
+
+  // Relations
+  user       User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, targetUserId])
+  @@map("match_interactions")
+}
+
+model RefreshToken {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  token     String   @unique
+  expiresAt DateTime @map("expires_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("refresh_tokens")
+}
+
+// Enums
+enum SkillCategory {
+  TECHNOLOGY
+  DESIGN
+  BUSINESS
+  MARKETING
+  LANGUAGES
+  MUSIC
+  ARTS_CRAFTS
+  FITNESS
+  COOKING
+  PHOTOGRAPHY
+  WRITING
+  OTHER
+}
+
+enum SessionStatus {
+  PENDING
+  CONFIRMED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  NO_SHOW
+}
+
+enum SessionType {
+  ONE_TIME
+  RECURRING
+  LEARNING_CIRCLE
+  MICRO_LEARNING
+}
+
+enum MessageType {
+  TEXT
+  FILE
+  IMAGE
+  SYSTEM
+}
+
+enum TransactionType {
+  EARNED
+  SPENT
+  PURCHASED
+  REFUNDED
+  BONUS
+}
+
+enum NotificationType {
+  SESSION_REMINDER
+  SESSION_CONFIRMED
+  SESSION_CANCELLED
+  MESSAGE_RECEIVED
+  MATCH_SUGGESTION
+  CREDIT_EARNED
+  CREDIT_SPENT
+  SKILL_VERIFIED
+  SYSTEM_UPDATE
+}
+
+enum SkillVerificationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum MatchInteractionType {
+  FAVORITE
+  PASS
+  BLOCK
+  VIEW
+}

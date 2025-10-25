@@ -2,6 +2,72 @@
 @tailwind components;
 @tailwind utilities;
 
-.material-symbols-outlined {
-  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+@layer base {
+  html {
+    @apply font-display;
+  }
+
+  body {
+    @apply bg-background-light dark:bg-background-dark text-text-light-primary dark:text-text-dark-primary;
+  }
+}
+
+@keyframes card-entry-animation {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes notification-feed-animation {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@layer components {
+  .card-entry {
+    @apply opacity-0 translate-y-5;
+    animation: card-entry-animation 0.5s ease-out forwards;
+  }
+
+  .card-entry:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+  .card-entry:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  .card-entry:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+  .card-entry:nth-child(4) {
+    animation-delay: 0.4s;
+  }
+
+  .notification-feed li {
+    @apply opacity-0 -translate-x-5;
+    animation: notification-feed-animation 0.4s ease-out forwards;
+  }
+
+  .notification-feed li:nth-child(1) {
+    animation-delay: 0.5s;
+  }
+  .notification-feed li:nth-child(2) {
+    animation-delay: 0.6s;
+  }
+  .notification-feed li:nth-child(3) {
+    animation-delay: 0.7s;
+  }
+  .notification-feed li:nth-child(4) {
+    animation-delay: 0.8s;
+  }
 }
