@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SkillSync User Profile</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#1193d4",
+            "background-light": "#f6f7f8",
+            "background-dark": "#101c22",
+            "neutral-100": "#e7eff3",
+            "neutral-200": "#cfdfe7",
+            "neutral-800": "#0d171b",
+            "neutral-600": "#4c809a",
+            "success": "#078836",
+            "warning": "#f59e0b",
+          },
+          fontFamily: {
+            "display": ["Manrope", "sans-serif"]
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          keyframes: {
+            fadeIn: {
+                '0%': { opacity: 0, transform: 'translateY(10px)' },
+                '100%': { opacity: 1, transform: 'translateY(0)' },
+            },
+          },
+          animation: {
+            fadeIn: 'fadeIn 0.5s ease-out forwards',
+          },
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      font-family: 'Manrope', sans-serif;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .review-item {
+        animation: fadeIn 0.5s ease-out forwards;
+        opacity: 0;
+    }
+    .review-item:nth-child(1) { animation-delay: 0.1s; }
+    .review-item:nth-child(2) { animation-delay: 0.2s; }.collapsible-content {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+    }
+    .collapsible-content > div {
+        overflow: hidden;
+    }
+    .section-expanded .collapsible-content {
+        grid-template-rows: 1fr;
+    }
+  </style>
+</head>
+<body class="bg-background-dark font-display text-neutral-100">
+<div class="flex min-h-screen">
+<aside class="w-64 flex-shrink-0 bg-neutral-800/20 p-4 border-r border-neutral-800/50 hidden lg:flex flex-col">
+<div class="flex flex-col justify-between h-full">
+<div class="flex flex-col gap-4">
+<div class="flex gap-3 items-center">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="SkillSync platform logo" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA0dG0BL0VCJUb7WwWsTjT4NfMarkGyxiV4cHYIi_RwZ5OomXnoB9elnf_H_WZm0Zz08bt-s4XpUfPKzzncc0TSjowlALgmEz0ZggXvi6jwvUUGPspLyQts4h6o1HeqQ3V7HoQEdSimyWPamOpq1ZR5Z1fXgYUpRHGsTos_Py7Krau0dWr2bObWVNhAwnA66wcr3xz8eLhiPo_KJS0eeE2wb4VSw_fM6prb7ZLIylhG2gvU4Cxo19vpwVVLsriOur4v-R18RJy1pLje");'></div>
+<div class="flex flex-col">
+<h1 class="text-neutral-100 text-base font-bold leading-normal">SkillSync</h1>
+<p class="text-neutral-200/60 text-sm font-normal leading-normal">Skill Exchange</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2 mt-4">
+<a class="flex items-center gap-3 px-3 py-2 text-neutral-100 hover:bg-neutral-800/50 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-2xl">home</span>
+<p class="text-sm font-medium leading-normal">Home</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-neutral-100 hover:bg-neutral-800/50 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-2xl">eyeglasses</span>
+<p class="text-sm font-medium leading-normal">Explore</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-neutral-100 hover:bg-neutral-800/50 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-2xl">event_upcoming</span>
+<p class="text-sm font-medium leading-normal">My Sessions</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-neutral-100 hover:bg-neutral-800/50 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-2xl">chat</span>
+<p class="text-sm font-medium leading-normal">Messages</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/30 text-white" href="#">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">person</span>
+<p class="text-sm font-bold leading-normal">Profile</p>
+</a>
+</nav>
+</div>
+<div class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 text-neutral-100 hover:bg-neutral-800/50 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-2xl">settings</span>
+<p class="text-sm font-medium leading-normal">Settings</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-neutral-100 hover:bg-neutral-800/50 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-2xl">logout</span>
+<p class="text-sm font-medium leading-normal">Logout</p>
+</a>
+</div>
+</div>
+</aside>
+<main class="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto">
+<div class="max-w-7xl mx-auto">
+<header class="bg-neutral-800/20 rounded-xl border border-neutral-800/50 overflow-hidden">
+<div class="h-48 bg-gradient-to-r from-cyan-900 to-blue-900 relative">
+<button class="absolute top-4 right-4 bg-black/30 backdrop-blur-sm text-white rounded-lg px-3 py-1.5 text-xs font-semibold hover:bg-black/50 transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm">edit</span>
+<span>Edit cover</span>
+</button>
+</div>
+<div class="px-6 pb-6">
+<div class="flex flex-col @container sm:flex-row sm:items-end sm:justify-between -mt-20 sm:-mt-16">
+<div class="flex flex-col sm:flex-row sm:items-end gap-4">
+<div class="relative flex-shrink-0">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-36 w-36 ring-4 ring-[#1a282f] shadow-lg" data-alt="Profile picture of Alex Doe" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCyZcwBL4hxm_sRREaaxdtWu0mOw2-rlk9LSteUrg5Zqp8EKicEAW3ndDKa3hiR-MqDTehjccmSIg23QAoQbx1pxSFD5tyKVkmy2PYeuRMNEdRlELa7uNDZFj1ZgT-SN45K3zkJV7G5RZomfcTkQaZk18Po5DCdPfC17jQRVItf3yvKWYv_SfJBqwLJf11aKGsjogJUR_UT1yrrZHVnXd37KYegRDN6EekQHKhIXj4gL9YRkbqg1WQ_Aj5NUBiqJuEbY9m6pfc7J5ep");'></div>
+<button class="absolute bottom-1 right-1 bg-neutral-800 rounded-full p-2 shadow-md hover:bg-neutral-600 transition-colors">
+<span class="material-symbols-outlined text-lg text-neutral-100">edit</span>
+</button>
+</div>
+<div class="flex flex-col justify-center pb-2">
+<h1 class="text-neutral-100 text-3xl font-bold leading-tight tracking-[-0.015em]">Alex Doe</h1>
+<p class="text-neutral-200/60 text-base font-normal leading-normal mt-1">@alexdoe • San Francisco, CA</p>
+</div>
+</div>
+<div class="flex w-full gap-3 mt-4 sm:mt-0 @[480px]:w-auto">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-neutral-800/50 text-neutral-100 text-sm font-bold leading-normal tracking-[0.015em] flex-1 @[480px]:flex-auto hover:bg-neutral-800 transition-colors">
+<span class="truncate">Edit Profile</span>
+</button>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] flex-1 @[480px]:flex-auto hover:bg-primary/90 transition-colors">
+<span class="truncate">Share Profile</span>
+</button>
+</div>
+</div>
+<div class="mt-6 flex flex-wrap gap-x-6 gap-y-3">
+<div class="flex items-center gap-2 text-sm text-neutral-200/80">
+<span class="material-symbols-outlined text-primary text-xl" title="Email Verified">verified</span>
+<span>Email Verified</span>
+</div>
+<div class="flex items-center gap-2 text-sm text-neutral-200/80">
+<span class="material-symbols-outlined text-success text-xl" title="ID Verified">shield_person</span>
+<span>Identity Verified</span>
+</div>
+<div class="flex items-center gap-2 text-sm text-neutral-200/80">
+<span class="material-symbols-outlined text-warning text-xl" title="Top Rated">workspace_premium</span>
+<span>Top Rated</span>
+</div>
+</div>
+</div>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 mt-6">
+<div class="lg:col-span-1 flex flex-col gap-6">
+<div class="bg-neutral-800/20 rounded-xl border border-neutral-800/50 overflow-hidden group/section section-expanded">
+<div class="flex justify-between items-center p-6 cursor-pointer" onclick="this.parentElement.classList.toggle('section-expanded')">
+<h2 class="text-lg font-bold text-neutral-100">About Me</h2>
+<span class="material-symbols-outlined text-neutral-100/60 transition-transform duration-500 group-[.section-expanded]/section:rotate-180">expand_more</span>
+</div>
+<div class="collapsible-content">
+<div>
+<div class="px-6 pb-6 pt-0">
+<p class="text-neutral-100/80 text-base font-normal leading-relaxed"> A passionate front-end developer with 5 years of experience in React and a love for teaching clean code principles. Looking to learn Python for data analysis. </p>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-neutral-800/20 rounded-xl p-6 border border-neutral-800/50">
+<div class="flex flex-col gap-3">
+<div class="flex gap-6 justify-between items-center">
+<p class="text-neutral-100 text-base font-medium leading-normal">Profile Completeness</p>
+<p class="text-cyan-300 text-sm font-bold leading-normal">80%</p>
+</div>
+<div class="relative h-2 rounded-full bg-neutral-800/50"><div class="absolute inset-y-0 left-0 h-2 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 transition-all duration-1000" style="width: 80%;"></div></div>
+<p class="text-neutral-200/60 text-sm font-normal leading-normal">Add your skills to reach 100%</p>
+</div>
+</div>
+<div class="bg-neutral-800/20 rounded-xl p-6 border border-neutral-800/50">
+<div class="grid grid-cols-3 gap-4 text-center">
+<div>
+<p class="text-neutral-100 tracking-light text-3xl font-bold leading-tight">4.9</p>
+<p class="text-neutral-200/60 text-sm font-medium leading-normal">Avg. Rating</p>
+</div>
+<div>
+<p class="text-neutral-100 tracking-light text-3xl font-bold leading-tight">128</p>
+<p class="text-neutral-200/60 text-sm font-medium leading-normal">Sessions</p>
+</div>
+<div>
+<p class="text-neutral-100 tracking-light text-3xl font-bold leading-tight">1.2k</p>
+<p class="text-neutral-200/60 text-sm font-medium leading-normal">Views</p>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-2 flex flex-col gap-6">
+<div class="bg-neutral-800/20 rounded-xl border border-neutral-800/50 overflow-hidden group/section section-expanded">
+<div class="p-6">
+<div class="flex justify-between items-center cursor-pointer" onclick="this.closest('.group\\/section').classList.toggle('section-expanded')">
+<h3 class="text-lg font-bold text-neutral-100">Skills</h3>
+<span class="material-symbols-outlined text-neutral-100/60 transition-transform duration-500 group-[.section-expanded]/section:rotate-180">expand_more</span>
+</div>
+</div>
+<div class="collapsible-content">
+<div>
+<div class="px-6 pb-6">
+<div>
+<div class="flex justify-between items-center mb-4">
+<h4 class="font-bold text-neutral-100/80">Skills Offered</h4>
+<button class="flex items-center gap-1.5 text-sm font-bold text-primary hover:text-primary/80 transition-colors">
+<span class="material-symbols-outlined text-base">add_circle</span> Add Skill </button>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="inline-flex items-center rounded-full bg-cyan-900/50 px-3 py-1 text-sm font-medium text-cyan-200">React.js</span>
+<span class="inline-flex items-center rounded-full bg-cyan-900/50 px-3 py-1 text-sm font-medium text-cyan-200">JavaScript</span>
+<span class="inline-flex items-center rounded-full bg-cyan-900/50 px-3 py-1 text-sm font-medium text-cyan-200">CSS &amp; Tailwind</span>
+<span class="inline-flex items-center rounded-full bg-cyan-900/50 px-3 py-1 text-sm font-medium text-cyan-200">UI/UX Principles</span>
+<span class="inline-flex items-center rounded-full bg-cyan-900/50 px-3 py-1 text-sm font-medium text-cyan-200">Web Accessibility</span>
+</div>
+</div>
+<div class="mt-8">
+<div class="flex justify-between items-center mb-4">
+<h4 class="font-bold text-neutral-100/80">Skills Sought</h4>
+<button class="flex items-center gap-1.5 text-sm font-bold text-primary hover:text-primary/80 transition-colors">
+<span class="material-symbols-outlined text-base">add_circle</span> Add Skill </button>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="inline-flex items-center rounded-full bg-neutral-800/50 px-3 py-1 text-sm font-medium text-neutral-100">Python</span>
+<span class="inline-flex items-center rounded-full bg-neutral-800/50 px-3 py-1 text-sm font-medium text-neutral-100">Data Analysis</span>
+<span class="inline-flex items-center rounded-full bg-neutral-800/50 px-3 py-1 text-sm font-medium text-neutral-100">Pandas</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-neutral-800/20 rounded-xl border border-neutral-800/50 overflow-hidden group/section section-expanded">
+<div class="p-6">
+<div class="flex justify-between items-center cursor-pointer" onclick="this.closest('.group\\/section').classList.toggle('section-expanded')">
+<h3 class="text-lg font-bold text-neutral-100">Recent Reviews</h3>
+<span class="material-symbols-outlined text-neutral-100/60 transition-transform duration-500 group-[.section-expanded]/section:rotate-180">expand_more</span>
+</div>
+</div>
+<div class="collapsible-content">
+<div>
+<div class="px-6 pb-6 pt-0">
+<div class="flex flex-col gap-6">
+<div class="flex gap-4 review-item">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 flex-shrink-0" data-alt="Profile picture of Jane Smith" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAaFwxDSAv5NFSazvgW8H_hem_163SWMEcxnvFrsbQ65odZQTQ0BuXl39A9Tk0E3FMe-HKvZ15Yxl8P6qWuHN3Ww_e38KOdilgJjl_InUUicClEYeko1WEkIg8lvzLHhyxyoTxjU-Xu3z0scrradARBr9ntIF7A-Fp__nTgFyAGTXLcZuJjHlbrLr9rU93UcU_-eoY_XlKyhq6N9L_Lh9gRKdVVyGhQNj1cXOtKiKPQNC-tzewpMCeYnxqQthF-68MFtGXiAQ7EHwb0");'></div>
+<div>
+<div class="flex items-center gap-2">
+<h4 class="text-sm font-bold text-neutral-100">Jane Smith</h4>
+<p class="text-xs text-neutral-200/60">2 weeks ago</p>
+</div>
+<div class="flex items-center mt-1 -ml-1">
+<span class="material-symbols-outlined text-warning text-lg">star</span>
+<span class="material-symbols-outlined text-warning text-lg">star</span>
+<span class="material-symbols-outlined text-warning text-lg">star</span>
+<span class="material-symbols-outlined text-warning text-lg">star</span>
+<span class="material-symbols-outlined text-warning text-lg">star</span>
+</div>
+<p class="mt-2 text-sm text-neutral-100/80 leading-relaxed">Alex is an amazing mentor! He explains complex React concepts in a way that's easy to understand. Highly recommend for anyone looking to level up their front-end skills.</p>
+</div>
+</div>
+<div class="flex gap-4 review-item">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 flex-shrink-0" data-alt="Profile picture of Carlos Ray" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCwUaSeSkzJIvo62cpXrWy7fJCzi-K8KkC6216iz_aMjW2gs7PMkwxpTPny6zXdjVEg75NJjmeunMHOeqs3qHvGsxw5AGG91M__dyR7eFWfK3yknouYF4PeICTqRBp7B_V1rtONPJEdF_YcmIBNeBbG_XGKoRKNGkcugGCZMgkQ06AMC1Qi6lMgGoKbRJom3j_Y1QpljErQGwCDALMFr93qBIZK3Kj-l8JWVrNUnpyNdT5WWnfAhS9yBzN-P-jgZSk4fGY6nVbTjqaE");'></div>
+<div>
+<div class="flex items-center gap-2">
+<h4 class="text-sm font-bold text-neutral-100">Carlos Ray</h4>
+<p class="text-xs text-neutral-200/60">1 month ago</p>
+</div>
+<div class="flex items-center mt-1 -ml-1">
+<span class="material-symbols-outlined text-warning text-lg">star</span>
+<span class="material-symbols-outlined text-warning text-lg">star</span>
+<span class="material-symbols-outlined text-warning text-lg">star</span>
+<span class="material-symbols-outlined text-warning text-lg">star</span>
+<span class="material-symbols-outlined text-neutral-600 text-lg">star</span>
+</div>
+<p class="mt-2 text-sm text-neutral-100/80 leading-relaxed">Great session on web accessibility. Alex is very knowledgeable and patient.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

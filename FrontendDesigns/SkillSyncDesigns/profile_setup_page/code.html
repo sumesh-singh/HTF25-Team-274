@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SkillSync - Profile Setup</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#1193d4",
+            "background-light": "#f6f7f8",
+            "background-dark": "#0d171b",
+            "slate": {
+              800: "#172a3a",
+              850: "#112232",
+              900: "#0f172a"
+            }
+          },
+          fontFamily: {
+            "display": ["Manrope", "sans-serif"]
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          boxShadow: {
+            'input-focus': '0 0 0 3px rgba(17, 147, 212, 0.2)',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0', transform: 'translateY(10px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            progressBar: {
+              '0%': { width: '0%' },
+              '100%': { width: 'var(--progress-width)' }
+            }
+          },
+          animation: {
+            fadeIn: 'fadeIn 0.5s ease-out forwards',
+            progressBar: 'progressBar 1s ease-out forwards'
+          }
+        },
+      },
+    }
+  </script>
+<style type="text/tailwindcss">
+    @property --progress-width {
+      syntax: '<percentage>';
+      inherits: false;
+      initial-value: 0%;
+    }
+    .material-symbols-outlined {
+      font-variation-settings:
+      'FILL' 0,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 24
+    }
+    .material-symbols-outlined.fill {
+      font-variation-settings:
+      'FILL' 1,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 24
+    }
+    .progress-bar-track {
+        @apply relative h-2.5 w-full rounded-full bg-slate-700;
+    }
+    .progress-bar-fill {
+        @apply absolute h-full rounded-full bg-gradient-to-r from-cyan-400 to-primary transition-[width] duration-1000 ease-out;
+    }
+    .form-input {
+        @apply mt-1 block w-full rounded-lg border-slate-600 bg-slate-700/50 shadow-sm focus:border-primary focus:ring-0 focus:shadow-input-focus sm:text-sm transition-all duration-300 placeholder:text-slate-400;
+    }
+    .form-input:focus {
+        @apply bg-slate-700;
+    }
+    .calendar-slot {
+        @apply h-12 border-b border-r border-slate-700 cursor-pointer transition-colors duration-200;
+    }
+    .calendar-slot.available {
+        @apply bg-primary/20 hover:bg-primary/30;
+    }
+    .calendar-slot:not(.available) {
+        @apply hover:bg-primary/10;
+    }
+    .calendar-day-header {
+        @apply flex flex-col items-center justify-center h-20 text-sm font-semibold tracking-wide text-slate-300;
+    }
+    .section-card {
+        @apply opacity-0 animate-fadeIn;
+    }
+  </style>
+</head>
+<body class="font-display bg-background-dark text-slate-200">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-slate-700/50 px-10 py-3 bg-slate-850/50 backdrop-blur-sm sticky top-0 z-10">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-6">
+<svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em] text-white">SkillSync</h2>
+</div>
+<div class="flex flex-1 justify-end gap-6">
+<div class="flex items-center gap-8">
+<a class="text-sm font-medium leading-normal text-slate-300 hover:text-primary" href="#">Dashboard</a>
+<a class="text-sm font-medium leading-normal text-slate-300 hover:text-primary" href="#">Find a Skill</a>
+<a class="text-sm font-medium leading-normal text-slate-300 hover:text-primary" href="#">Messages</a>
+<a class="text-sm font-medium leading-normal text-slate-300 hover:text-primary" href="#">Community</a>
+</div>
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 w-10 bg-slate-700 text-slate-300 gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
+<span class="material-symbols-outlined text-xl">notifications</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User profile picture of a person smiling" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCnCzZvJe4LG95Zacj923hyHolx3C3zdB2ktBNExvBKRO-q_GFOt2uTKEimnP8p0vRB2uJIju2RzUbUPNyJzLn8GKZ0ZNSRafQSOBGFv2yG71YLMaVkCxoAfYkbqLuFoFYmOo5CGpo8Ic9i35N5RhoIy4qqkSrpWxG_Dt572o4v9uk1DMUB2pEyE5v_2gZFczOEfJpIHtup8Urn2Yq8cBUEFi6zkIO0BaBNdQ9vD1GuuxQCTwCjLUxdq7rN55Ts19Bpm0ddJpW3-fdS");'></div>
+</div>
+</header>
+<main class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+<div class="flex flex-col gap-4">
+<div class="flex flex-wrap justify-between gap-3 p-4">
+<div class="flex min-w-72 flex-col gap-2">
+<p class="text-white text-4xl font-black leading-tight tracking-[-0.033em]">Profile Setup</p>
+<p class="text-slate-400 text-base font-normal leading-normal">Welcome to SkillSync! Let's get your profile ready to connect.</p>
+</div>
+</div>
+<div class="flex flex-col lg:flex-row gap-8">
+<aside class="w-full lg:w-1/4 lg:sticky lg:top-28 self-start">
+<div class="flex h-full flex-col justify-between rounded-xl bg-slate-800 p-4">
+<div class="flex flex-col gap-6">
+<div class="flex flex-col gap-4 p-2">
+<div class="flex gap-4 items-center">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12" data-alt="User profile picture of a person smiling" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDK8qT-gp7wDIboP8rEVzJ4r5JAEGzK92m7rPOQ-64wVjKhpAVsWjUW0Owzu5FlN4Y5haO1zPe7IBn2Hz5mNhtMdalbA_9nvJRfGVKXzVuc0Y2hkSIsaM3t_TeazyCjnieUUwolK8PbuBaYz0Ecn6tgEA47KAhKn7zBexvccBtgWszVsTnwFkOetJDZh_V-HJ2Dy-YuC_04DullsTkQKHcCyNGtL97hIwiyPXbgm1RRWC8jhgaueOBcO-01CsACn5smkzTDwG1wRnQb");'></div>
+<div class="flex flex-col">
+<h1 class="text-white text-base font-bold leading-normal">Alex Doe</h1>
+<p class="text-slate-400 text-sm font-normal leading-normal">Building Profile</p>
+</div>
+</div>
+<div class="flex flex-col gap-2.5">
+<div class="flex gap-6 justify-between">
+<p class="text-slate-300 text-sm font-medium leading-normal">Profile Completeness</p>
+<p class="text-primary font-semibold text-sm leading-normal">33%</p>
+</div>
+<div class="progress-bar-track"><div class="progress-bar-fill" style="width: 33%;"></div></div>
+</div>
+</div>
+<div class="flex flex-col gap-2 pt-2 border-t border-slate-700">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/20 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined fill text-primary text-2xl">person</span>
+<p class="text-primary text-sm font-semibold leading-normal">Personal Info</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-700/50 cursor-pointer transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-slate-400 text-2xl">psychology</span>
+<p class="text-slate-300 text-sm font-medium leading-normal">My Skills</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-700/50 cursor-pointer transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-slate-400 text-2xl">calendar_month</span>
+<p class="text-slate-300 text-sm font-medium leading-normal">Availability</p>
+</a>
+</div>
+</div>
+</div>
+</aside>
+<div class="w-full lg:w-3/4 flex flex-col gap-8">
+<div class="section-card flex flex-col gap-4 rounded-xl bg-slate-800 p-6 shadow-sm" style="animation-delay: 100ms;">
+<div class="flex items-center gap-4 border-b border-slate-700 pb-4">
+<div class="flex items-center justify-center size-10 rounded-full bg-primary/10"><span class="material-symbols-outlined text-primary text-2xl fill">person</span></div>
+<h2 class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em]">Let's start with the basics</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-8 pt-4">
+<div class="md:col-span-1">
+<label class="block text-sm font-medium text-slate-300 mb-2" for="profile-photo">Profile Photo</label>
+<div class="group flex flex-col items-center justify-center gap-4 p-4 rounded-xl border-2 border-dashed border-slate-600 bg-slate-700/20">
+<div class="relative w-32 h-32">
+<div class="w-full h-full rounded-full bg-center bg-no-repeat bg-cover border-4 border-slate-800 shadow-md transition-transform duration-300 group-hover:scale-105" data-alt="User profile picture of a person smiling" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC_yzCteoV4o2dyMihw0rO61e560Hv-u1W2fMyRBHdMQ_cRwszARLjwzGRBXDdyan2ScxsZkB-BRx5px_yBWyWrszegeKb1QJy1_T6nDGK1VUmtb0Y0qRRGPZdlsUnH5ynd3OXPqgUlyz_d3fKdklG-UDcQkyjGGoc9Fz9qAxlAlFcESTVECtKQ0zu94rhuLQI7S6DmHEZ54aR7EjdhDrNcSBCk0kFbaQiPR1HokDLj8PxVD7LFHCbWWvjcEumsEJM3n8USyGbqyQl6");'></div>
+<button class="absolute bottom-1 right-1 flex items-center justify-center size-8 rounded-full bg-primary text-white hover:bg-primary/90 transition-all duration-300 shadow group-hover:scale-110">
+<span class="material-symbols-outlined text-lg">edit</span>
+</button>
+</div>
+<p class="text-xs text-slate-400 text-center">JPG, PNG, or GIF. 5MB max.</p>
+</div>
+</div>
+<div class="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-6">
+<div class="sm:col-span-2">
+<label class="block text-sm font-medium text-slate-300" for="full-name">Full Name</label>
+<input class="form-input" id="full-name" type="text" value="Alex Doe"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-slate-300" for="location">Location</label>
+<input class="form-input" id="location" placeholder="e.g., San Francisco, CA" type="text"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-slate-300" for="timezone">Timezone</label>
+<select class="form-input" id="timezone">
+<option>(GMT-08:00) Pacific Time (US &amp; Canada)</option>
+<option>(GMT-05:00) Eastern Time (US &amp; Canada)</option>
+<option>(GMT+01:00) Central European Time</option>
+</select>
+</div>
+<div class="sm:col-span-2">
+<label class="block text-sm font-medium text-slate-300" for="short-bio">Short Bio</label>
+<textarea class="form-input" id="short-bio" placeholder="Tell us a little about yourself..." rows="4"></textarea>
+</div>
+</div>
+</div>
+</div>
+<div class="section-card flex flex-col gap-4 rounded-xl bg-slate-800 p-6 shadow-sm" style="animation-delay: 200ms;">
+<div class="flex items-center gap-4 border-b border-slate-700 pb-4">
+<div class="flex items-center justify-center size-10 rounded-full bg-primary/10"><span class="material-symbols-outlined text-primary text-2xl">psychology</span></div>
+<div>
+<h2 class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em]">What are your skills?</h2>
+<p class="text-slate-400 text-base font-normal leading-normal mt-1">Add skills you can teach and skills you want to learn.</p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+<div>
+<h3 class="text-lg font-semibold text-white mb-2">I Can Teach...</h3>
+<div class="flex flex-col gap-3 p-4 rounded-lg bg-slate-900/50 min-h-[16rem]">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">add</span>
+<input class="form-input pl-10" placeholder="e.g., Python" type="text"/>
+</div>
+<div class="flex flex-wrap gap-2">
+<div class="flex items-center gap-2 bg-primary/10 text-primary text-sm font-medium px-3 py-1.5 rounded-full"><span>Graphic Design</span><span class="material-symbols-outlined text-base cursor-pointer">close</span></div>
+<div class="flex items-center gap-2 bg-primary/10 text-primary text-sm font-medium px-3 py-1.5 rounded-full"><span>Public Speaking</span><span class="material-symbols-outlined text-base cursor-pointer">close</span></div>
+</div>
+</div>
+</div>
+<div>
+<h3 class="text-lg font-semibold text-white mb-2">I Want to Learn...</h3>
+<div class="flex flex-col gap-3 p-4 rounded-lg bg-slate-900/50 min-h-[16rem]">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="form-input pl-10" placeholder="e.g., Calligraphy" type="text"/>
+</div>
+<div class="flex flex-wrap gap-2">
+<div class="flex items-center gap-2 bg-slate-700 text-slate-200 text-sm font-medium px-3 py-1.5 rounded-full"><span>Guitar</span><span class="material-symbols-outlined text-base cursor-pointer">close</span></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section-card flex flex-col gap-4 rounded-xl bg-slate-800 p-6 shadow-sm" style="animation-delay: 300ms;">
+<div class="flex items-center gap-4 border-b border-slate-700 pb-4">
+<div class="flex items-center justify-center size-10 rounded-full bg-primary/10"><span class="material-symbols-outlined text-primary text-2xl">calendar_month</span></div>
+<div>
+<h2 class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em]">When are you available?</h2>
+<p class="text-slate-400 text-base font-normal leading-normal mt-1">Click and drag to select your available time slots.</p>
+</div>
+</div>
+<div class="pt-4 overflow-x-auto">
+<div class="grid grid-cols-8 min-w-[700px] border-t border-l border-slate-700 rounded-lg overflow-hidden">
+<div class="h-20 border-b border-r border-slate-700 bg-slate-850"></div>
+<div class="calendar-day-header border-b border-r border-slate-700 bg-slate-850"><span class="text-xs text-slate-400">MON</span><span>18</span></div>
+<div class="calendar-day-header border-b border-r border-slate-700 bg-slate-850"><span class="text-xs text-slate-400">TUE</span><span>19</span></div>
+<div class="calendar-day-header border-b border-r border-slate-700 bg-slate-850"><span class="text-xs text-slate-400">WED</span><span>20</span></div>
+<div class="calendar-day-header border-b border-r border-slate-700 bg-slate-850"><span class="text-xs text-slate-400">THU</span><span>21</span></div>
+<div class="calendar-day-header border-b border-r border-slate-700 bg-slate-850"><span class="text-xs text-slate-400">FRI</span><span>22</span></div>
+<div class="calendar-day-header border-b border-r border-slate-700 bg-slate-850"><span class="text-xs text-slate-400">SAT</span><span>23</span></div>
+<div class="calendar-day-header border-b border-slate-700 bg-slate-850"><span class="text-xs text-slate-400">SUN</span><span>24</span></div>
+<div class="flex items-center justify-end text-xs text-right pr-2 font-mono text-slate-400 border-b border-r border-slate-700 bg-slate-850">09:00</div>
+<div class="calendar-slot"></div>
+<div class="calendar-slot"></div>
+<div class="calendar-slot available"></div>
+<div class="calendar-slot"></div>
+<div class="calendar-slot available"></div>
+<div class="calendar-slot"></div>
+<div class="calendar-slot"></div>
+<div class="flex items-center justify-end text-xs text-right pr-2 font-mono text-slate-400 border-b border-r border-slate-700 bg-slate-850">10:00</div>
+<div class="calendar-slot"></div>
+<div class="calendar-slot"></div>
+<div class="calendar-slot available"></div>
+<div class="calendar-slot"></div>
+<div class="calendar-slot available"></div>
+<div class="calendar-slot"></div>
+<div class="calendar-slot"></div>
+<div class="flex items-center justify-end text-xs text-right pr-2 font-mono text-slate-400 border-b border-r border-slate-700 bg-slate-850">11:00</div>
+<div class="calendar-slot"></div>
+<div class="calendar-slot"></div>
+<div class="calendar-slot"></div>
+<div class="calendar-slot"></div>
+<div class="calendar-slot"></div>
+<div class="calendar-slot"></div>
+<div class="calendar-slot"></div>
+<div class="flex items-center justify-end text-xs text-right pr-2 font-mono text-slate-400 border-b border-r border-slate-700 bg-slate-850">12:00</div>
+<div class="calendar-slot"></div>
+<div class="calendar-slot"></div>
+<div class="calendar-slot"></div>
+<div class="calendar-slot"></div>
+<div class="calendar-slot"></div>
+<div class="calendar-slot"></div>
+<div class="calendar-slot"></div>
+</div>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 mt-4">
+<div class="flex items-center gap-2 text-sm text-slate-400">
+<span class="material-symbols-outlined text-base text-green-500">check_circle</span>
+<p>Your changes are saved automatically.</p>
+</div>
+<div class="flex gap-4">
+<button class="px-6 py-2.5 text-sm font-semibold rounded-lg bg-transparent text-slate-200 hover:bg-slate-700/50 transition-colors">Skip for Now</button>
+<button class="px-6 py-2.5 text-sm font-semibold rounded-lg bg-primary text-white shadow-sm hover:bg-primary/90 transition-colors">Finish Setup</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

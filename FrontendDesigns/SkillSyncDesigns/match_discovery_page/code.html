@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SkillSync - Match Discovery</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<style type="text/tailwindcss">
+    @layer base {
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .card-enter {
+        animation: card-enter 0.5s ease-out both;
+      }
+      @keyframes card-enter {
+        0% {
+          opacity: 0;
+          transform: translateY(20px) scale(0.95);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+      .filter-change {
+        animation: filter-change 0.3s ease-in-out;
+      }
+      @keyframes filter-change {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.02); }
+        100% { transform: scale(1); }
+      }
+    }
+  </style>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#4F46E5",
+            "primary-light": "#A5B4FC",
+            "secondary": "#10B981",
+            "background-light": "#F8FAFC",
+            "background-dark": "#0B1120",
+            "surface-light": "#FFFFFF",
+            "surface-dark": "#1E293B",
+            "text-light-primary": "#0F172A",
+            "text-dark-primary": "#F8FAFC",
+            "text-light-secondary": "#64748B",
+            "text-dark-secondary": "#94A3B8",
+            "border-light": "#E2E8F0",
+            "border-dark": "#334155",
+          },
+          fontFamily: {
+            "display": ["Manrope", "sans-serif"]
+          },
+          borderRadius: {
+            "DEFAULT": "0.5rem",
+            "lg": "0.75rem",
+            "xl": "1rem",
+            "2xl": "1.5rem",
+            "full": "9999px"
+          },
+          boxShadow: {
+            'card': '0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05)',
+            'card-hover': '0 10px 15px -3px rgb(0 0 0 / 0.07), 0 4px 6px -4px rgb(0 0 0 / 0.07)',
+          },
+        },
+      },
+    }
+  </script>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-text-light-primary dark:text-dark-primary">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<header class="sticky top-0 z-20 flex items-center justify-between whitespace-nowrap border-b border-solid border-border-light dark:border-border-dark px-6 md:px-10 py-3 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-text-light-primary dark:text-dark-primary">
+<span class="material-symbols-outlined text-primary text-3xl">sync_saved_locally</span>
+<h2 class="text-xl font-bold tracking-tight">SkillSync</h2>
+</div>
+</div>
+<div class="hidden md:flex flex-1 justify-center gap-8">
+<div class="flex items-center gap-9">
+<a class="text-sm font-medium hover:text-primary dark:hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-sm font-bold text-primary dark:text-primary" href="#">Discover</a>
+<a class="text-sm font-medium hover:text-primary dark:hover:text-primary transition-colors" href="#">My Skills</a>
+<a class="text-sm font-medium hover:text-primary dark:hover:text-primary transition-colors" href="#">Messages</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden sm:flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
+<span class="truncate">Post a Skill</span>
+</button>
+<button class="flex items-center justify-center rounded-full h-10 w-10 bg-primary/10 dark:bg-primary/20 text-text-light-primary dark:text-dark-primary hover:bg-primary/20 dark:hover:bg-primary/30 transition-colors">
+<span class="material-symbols-outlined text-xl">notifications</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary/50" data-alt="User's profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDPfeMfnEhfLvyPyo0V3L-QPH7Y_iOokCYfvxBwsAkUEikgUKMCujL_b3lCJitBfdYFzPQqC2Bpwt1P4Xti6eiNxP4J5yg3CW6glwaYfmHBAtwlMc_Z4GHuKGVAcYlqfmKKFMAyNicgd9c2fowESHMLONK9Hn207MYoXNnTGlzSOWnbnip67UwViyjG97AQRmn2cRR-mpuqR9AKKGjC-lTUL8jzAdqzt02C7fHaKCdthhjrG01f6OS6Z_X5L21aF-tTYnswGwinjd7-");'></div>
+</div>
+</header>
+<main class="w-full max-w-screen-2xl mx-auto p-4 sm:p-6 lg:p-8">
+<div class="flex flex-wrap justify-between items-start gap-6 mb-8">
+<div class="flex min-w-72 flex-col gap-1">
+<h1 class="text-3xl lg:text-4xl font-black tracking-tighter">Discover Your Match</h1>
+<p class="text-text-light-secondary dark:text-dark-secondary text-base font-normal">Find the perfect partner to learn and grow with.</p>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<aside class="lg:col-span-3">
+<div class="sticky top-24">
+<div class="bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark rounded-xl p-6 flex flex-col gap-6 transition-all duration-300 filter-change">
+<div class="flex justify-between items-center">
+<h3 class="text-lg font-bold">Filters</h3>
+<button class="text-sm font-medium text-primary hover:underline">Reset All</button>
+</div>
+<div class="flex flex-col gap-3 border-b border-border-light dark:border-border-dark pb-6">
+<label class="text-base font-semibold" for="skill-search">Skill / Category</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-light-secondary dark:text-dark-secondary text-xl">search</span>
+<input class="w-full pl-10 pr-4 py-2.5 text-sm border border-border-light dark:border-border-dark rounded-lg bg-background-light dark:bg-background-dark focus:ring-2 focus:ring-primary/50 focus:border-primary" id="skill-search" placeholder="Python, UX Design, etc." type="text"/>
+</div>
+<div class="flex flex-col gap-3 mt-2">
+<label class="flex items-center gap-x-3 cursor-pointer"><input checked="" class="h-5 w-5 rounded border-gray-300 dark:bg-surface-dark dark:border-border-dark text-primary focus:ring-primary/50" type="checkbox"/><span class="text-sm">Technology</span></label>
+<label class="flex items-center gap-x-3 cursor-pointer"><input class="h-5 w-5 rounded border-gray-300 dark:bg-surface-dark dark:border-border-dark text-primary focus:ring-primary/50" type="checkbox"/><span class="text-sm">Creative Arts</span></label>
+<label class="flex items-center gap-x-3 cursor-pointer"><input class="h-5 w-5 rounded border-gray-300 dark:bg-surface-dark dark:border-border-dark text-primary focus:ring-primary/50" type="checkbox"/><span class="text-sm">Business</span></label>
+<label class="flex items-center gap-x-3 cursor-pointer"><input class="h-5 w-5 rounded border-gray-300 dark:bg-surface-dark dark:border-border-dark text-primary focus:ring-primary/50" type="checkbox"/><span class="text-sm">Languages</span></label>
+</div>
+</div>
+<div class="flex flex-col gap-4 border-b border-border-light dark:border-border-dark pb-6">
+<h4 class="text-base font-semibold">Proficiency Level</h4>
+<div class="flex gap-2">
+<button class="flex-1 px-3 py-2 text-sm font-semibold rounded-lg bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary-light">Any</button>
+<button class="flex-1 px-3 py-2 text-sm font-semibold rounded-lg bg-gray-100 dark:bg-slate-700 text-text-light-secondary dark:text-dark-secondary hover:bg-gray-200 dark:hover:bg-slate-600">Beginner</button>
+<button class="flex-1 px-3 py-2 text-sm font-semibold rounded-lg bg-gray-100 dark:bg-slate-700 text-text-light-secondary dark:text-dark-secondary hover:bg-gray-200 dark:hover:bg-slate-600">Expert</button>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="text-base font-semibold">Availability</h4>
+<div class="grid grid-cols-2 gap-2">
+<label class="flex items-center gap-x-2 cursor-pointer"><input class="h-5 w-5 rounded border-gray-300 dark:bg-surface-dark dark:border-border-dark text-primary focus:ring-primary/50" type="checkbox"/><span class="text-sm">Weekdays</span></label>
+<label class="flex items-center gap-x-2 cursor-pointer"><input class="h-5 w-5 rounded border-gray-300 dark:bg-surface-dark dark:border-border-dark text-primary focus:ring-primary/50" type="checkbox"/><span class="text-sm">Weekends</span></label>
+<label class="flex items-center gap-x-2 cursor-pointer"><input class="h-5 w-5 rounded border-gray-300 dark:bg-surface-dark dark:border-border-dark text-primary focus:ring-primary/50" type="checkbox"/><span class="text-sm">Mornings</span></label>
+<label class="flex items-center gap-x-2 cursor-pointer"><input class="h-5 w-5 rounded border-gray-300 dark:bg-surface-dark dark:border-border-dark text-primary focus:ring-primary/50" type="checkbox"/><span class="text-sm">Evenings</span></label>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<section class="lg:col-span-9">
+<div class="mb-4">
+<p class="text-sm text-text-light-secondary dark:text-dark-secondary">Showing <span class="font-bold text-text-light-primary dark:text-dark-primary">12</span> potential matches</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+<div class="group bg-surface-light dark:bg-surface-dark rounded-2xl shadow-card hover:shadow-card-hover transition-all duration-300 overflow-hidden flex flex-col border border-border-light dark:border-border-dark card-enter">
+<div class="p-6 flex-grow">
+<div class="flex items-start justify-between mb-4">
+<div class="flex items-center gap-4">
+<img class="size-16 rounded-full object-cover" data-alt="Profile picture of Sarah Doe" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvYt3FykHy5eIaxFAkrkCObXAPHk0qlgraIBeSvcJcsde0UTSOpukQVzxPz4uv1IB8uBIMJekoV35Q3vNXI00LYe6CVeM4YErr8SZIwrZ1VbFYePV5WbE5HlGokba_tqzXnj9s4hR2o__OxHWM0JQbKgJnlotTyx5N-hdU2OQLYb1HrpZdipdg147N--S6ESNR6ccuAJnOOSF8wS9moUkfR9LIc9nMVL-8ztr2qk3dwLUL3_IMqYQnCiymNelSYsEbF_zr7qGiY6F0"/>
+<div>
+<h3 class="font-bold text-lg">Sarah Doe</h3>
+<p class="text-sm text-text-light-secondary dark:text-dark-secondary">London, UK</p>
+</div>
+</div>
+<button class="relative group/button flex items-center justify-center size-12 bg-secondary/10 dark:bg-secondary/20 rounded-full cursor-pointer hover:scale-110 transition-transform" onclick="document.getElementById('match-modal').classList.remove('hidden')">
+<span class="font-bold text-sm text-secondary">95%</span>
+<div class="absolute bottom-full mb-2 w-max bg-slate-800 text-white text-xs rounded py-1 px-2 opacity-0 group-hover/button:opacity-100 transition-opacity whitespace-nowrap">Click to see why</div>
+</button>
+</div>
+<div class="mb-6">
+<p class="text-sm font-semibold mb-2">Primary Skills:</p>
+<div class="flex flex-wrap gap-2">
+<span class="text-xs font-semibold bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary-light px-3 py-1 rounded-full">Python</span>
+<span class="text-xs font-semibold bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary-light px-3 py-1 rounded-full">Data Science</span>
+<span class="text-xs font-semibold bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary-light px-3 py-1 rounded-full">SQL</span>
+</div>
+</div>
+<div class="flex items-center justify-between text-sm text-text-light-secondary dark:text-dark-secondary">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-base text-amber-500" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="font-semibold text-text-light-primary dark:text-dark-primary">4.9</span>
+<span>(42)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-base">event_available</span>
+<span>Weekends</span>
+</div>
+</div>
+</div>
+<div class="p-4 bg-background-light dark:bg-background-dark border-t border-border-light dark:border-border-dark grid grid-cols-2 gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<button class="w-full text-center px-4 py-2.5 text-sm font-bold bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark rounded-lg hover:bg-gray-100 dark:hover:bg-slate-600 transition-colors">View Profile</button>
+<button class="w-full text-center px-4 py-2.5 text-sm font-bold bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">Send Request</button>
+</div>
+</div>
+<div class="group bg-surface-light dark:bg-surface-dark rounded-2xl shadow-card hover:shadow-card-hover transition-all duration-300 overflow-hidden flex flex-col border border-border-light dark:border-border-dark card-enter" style="animation-delay: 0.1s;">
+<div class="p-6 flex-grow">
+<div class="flex items-start justify-between mb-4">
+<div class="flex items-center gap-4">
+<img class="size-16 rounded-full object-cover" data-alt="Profile picture of John Smith" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkwY7Al7N2i_2afTL4ma8_-YH2KNPubxfUnDrvkceLoogoe8PNgVOAkjdujMOhwVNrGNBKNTd0mdB3MwyraHhmeqig_ddgqQeBl5GFwrauod-_D3V0GP91KCTHu_y85jOTO-WJSyRMZP6vXeSCfZK1aR4PvQ65cZklddABNgnMyt76-5LNM3M1L4ry9aD5rFhZGnvU4c8zlr23kguwMia2gzHcQYSxeFwlxXittcV4N4Tc0b7k4Qrxao1lz3QoZsFOccXFBE6H3Zv5"/>
+<div>
+<h3 class="font-bold text-lg">John Smith</h3>
+<p class="text-sm text-text-light-secondary dark:text-dark-secondary">Berlin, DE</p>
+</div>
+</div>
+<button class="relative group/button flex items-center justify-center size-12 bg-secondary/10 dark:bg-secondary/20 rounded-full cursor-pointer hover:scale-110 transition-transform">
+<span class="font-bold text-sm text-secondary">91%</span>
+<div class="absolute bottom-full mb-2 w-max bg-slate-800 text-white text-xs rounded py-1 px-2 opacity-0 group-hover/button:opacity-100 transition-opacity whitespace-nowrap">Click to see why</div>
+</button>
+</div>
+<div class="mb-6">
+<p class="text-sm font-semibold mb-2">Primary Skills:</p>
+<div class="flex flex-wrap gap-2">
+<span class="text-xs font-semibold bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary-light px-3 py-1 rounded-full">UX Design</span>
+<span class="text-xs font-semibold bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary-light px-3 py-1 rounded-full">Figma</span>
+</div>
+</div>
+<div class="flex items-center justify-between text-sm text-text-light-secondary dark:text-dark-secondary">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-base text-amber-500" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="font-semibold text-text-light-primary dark:text-dark-primary">4.8</span>
+<span>(29)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-base">event_available</span>
+<span>Evenings</span>
+</div>
+</div>
+</div>
+<div class="p-4 bg-background-light dark:bg-background-dark border-t border-border-light dark:border-border-dark grid grid-cols-2 gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<button class="w-full text-center px-4 py-2.5 text-sm font-bold bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark rounded-lg hover:bg-gray-100 dark:hover:bg-slate-600 transition-colors">View Profile</button>
+<button class="w-full text-center px-4 py-2.5 text-sm font-bold bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">Send Request</button>
+</div>
+</div>
+<div class="group bg-surface-light dark:bg-surface-dark rounded-2xl shadow-card hover:shadow-card-hover transition-all duration-300 overflow-hidden flex flex-col border border-border-light dark:border-border-dark card-enter" style="animation-delay: 0.2s;">
+<div class="p-6 flex-grow">
+<div class="flex items-start justify-between mb-4">
+<div class="flex items-center gap-4">
+<img class="size-16 rounded-full object-cover" data-alt="Profile picture of Maria Garcia" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBo0k0X1tBjErZ3RSv9Eo6cm3MdaCtYkN0w9lhzVkkWUxHwHyo997vRVgIjBW6rmV6iICd3963BYPrkMtlQ-FLt7uBnINoQJmSgkffyF13z1pfFefqqZ7IBVYYSMdQ9YiqAcVQEXGUmyUaCMuRc9iN044fFrSpA7RHuYCz47oQLLIVUdkwQAd8MdKj9tEClG3Taotfqzwh984b6K1BGqLnM-6SK9yCL-dt6eqjT4HJnkezbiF1zKu7KIDBkANlYyAUNsShaXmEBTurX"/>
+<div>
+<h3 class="font-bold text-lg">Maria Garcia</h3>
+<p class="text-sm text-text-light-secondary dark:text-dark-secondary">Madrid, ES</p>
+</div>
+</div>
+<button class="relative group/button flex items-center justify-center size-12 bg-secondary/10 dark:bg-secondary/20 rounded-full cursor-pointer hover:scale-110 transition-transform">
+<span class="font-bold text-sm text-secondary">88%</span>
+<div class="absolute bottom-full mb-2 w-max bg-slate-800 text-white text-xs rounded py-1 px-2 opacity-0 group-hover/button:opacity-100 transition-opacity whitespace-nowrap">Click to see why</div>
+</button>
+</div>
+<div class="mb-6">
+<p class="text-sm font-semibold mb-2">Primary Skills:</p>
+<div class="flex flex-wrap gap-2">
+<span class="text-xs font-semibold bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary-light px-3 py-1 rounded-full">Spanish</span>
+<span class="text-xs font-semibold bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary-light px-3 py-1 rounded-full">Creative Writing</span>
+</div>
+</div>
+<div class="flex items-center justify-between text-sm text-text-light-secondary dark:text-dark-secondary">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-base text-amber-500" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="font-semibold text-text-light-primary dark:text-dark-primary">5.0</span>
+<span>(15)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-base">event_available</span>
+<span>Flexible</span>
+</div>
+</div>
+</div>
+<div class="p-4 bg-background-light dark:bg-background-dark border-t border-border-light dark:border-border-dark grid grid-cols-2 gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<button class="w-full text-center px-4 py-2.5 text-sm font-bold bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark rounded-lg hover:bg-gray-100 dark:hover:bg-slate-600 transition-colors">View Profile</button>
+<button class="w-full text-center px-4 py-2.5 text-sm font-bold bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">Send Request</button>
+</div>
+</div>
+<div class="group bg-surface-light dark:bg-surface-dark rounded-2xl shadow-card hover:shadow-card-hover transition-all duration-300 overflow-hidden flex flex-col border border-border-light dark:border-border-dark card-enter" style="animation-delay: 0.3s;">
+<div class="p-6 flex-grow">
+<div class="flex items-start justify-between mb-4">
+<div class="flex items-center gap-4">
+<img class="size-16 rounded-full object-cover" data-alt="Profile picture of Chen Wei" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGVAorR5iwL__IpiQHzFKT9RZx0L0XDG5DKyQs0Xa_vHf3-2preJeAJZtulvdQAnYphRU3PVai4JOQdQWTZ-cac-2o0Mr67VzO8tGs6q0lRnXiXRcLw0r3syuI60HOM-cVO1_J-Cc9ReCP_nfM6MGZA8Y2PuYTB_92cTL94k6N0Yol30HgdWeCSdlVj3vgentULTwS-2Oxw33fywSp-Ndi3dkjvjg0ORxmHGN7Ry10g4hgA3VhEGAD_mB4Ypf-RA_IKPPhTh_8ZL9N"/>
+<div>
+<h3 class="font-bold text-lg">Chen Wei</h3>
+<p class="text-sm text-text-light-secondary dark:text-dark-secondary">Tokyo, JP</p>
+</div>
+</div>
+<button class="relative group/button flex items-center justify-center size-12 bg-secondary/10 dark:bg-secondary/20 rounded-full cursor-pointer hover:scale-110 transition-transform">
+<span class="font-bold text-sm text-secondary">85%</span>
+<div class="absolute bottom-full mb-2 w-max bg-slate-800 text-white text-xs rounded py-1 px-2 opacity-0 group-hover/button:opacity-100 transition-opacity whitespace-nowrap">Click to see why</div>
+</button>
+</div>
+<div class="mb-6">
+<p class="text-sm font-semibold mb-2">Primary Skills:</p>
+<div class="flex flex-wrap gap-2">
+<span class="text-xs font-semibold bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary-light px-3 py-1 rounded-full">Project Mgmt</span>
+<span class="text-xs font-semibold bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary-light px-3 py-1 rounded-full">Agile</span>
+</div>
+</div>
+<div class="flex items-center justify-between text-sm text-text-light-secondary dark:text-dark-secondary">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-base text-amber-500" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="font-semibold text-text-light-primary dark:text-dark-primary">4.7</span>
+<span>(33)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-base">event_available</span>
+<span>Weekdays</span>
+</div>
+</div>
+</div>
+<div class="p-4 bg-background-light dark:bg-background-dark border-t border-border-light dark:border-border-dark grid grid-cols-2 gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<button class="w-full text-center px-4 py-2.5 text-sm font-bold bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark rounded-lg hover:bg-gray-100 dark:hover:bg-slate-600 transition-colors">View Profile</button>
+<button class="w-full text-center px-4 py-2.5 text-sm font-bold bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">Send Request</button>
+</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark rounded-2xl shadow-card overflow-hidden animate-pulse border border-border-light dark:border-border-dark">
+<div class="p-6">
+<div class="flex items-start justify-between mb-4">
+<div class="flex items-center gap-4">
+<div class="size-16 rounded-full bg-gray-200 dark:bg-slate-700"></div>
+<div>
+<div class="h-5 w-24 bg-gray-200 dark:bg-slate-700 rounded mb-2"></div>
+<div class="h-3 w-16 bg-gray-200 dark:bg-slate-700 rounded"></div>
+</div>
+</div>
+<div class="size-12 rounded-full bg-gray-200 dark:bg-slate-700"></div>
+</div>
+<div class="h-4 w-32 bg-gray-200 dark:bg-slate-700 rounded mb-2"></div>
+<div class="flex gap-2 mb-6">
+<div class="h-6 w-16 bg-gray-200 dark:bg-slate-700 rounded-full"></div>
+<div class="h-6 w-20 bg-gray-200 dark:bg-slate-700 rounded-full"></div>
+</div>
+<div class="flex justify-between">
+<div class="h-4 w-16 bg-gray-200 dark:bg-slate-700 rounded"></div>
+<div class="h-4 w-20 bg-gray-200 dark:bg-slate-700 rounded"></div>
+</div>
+</div>
+<div class="h-[73px]"></div>
+</div>
+<div class="hidden md:block bg-surface-light dark:bg-surface-dark rounded-2xl shadow-card overflow-hidden animate-pulse border border-border-light dark:border-border-dark">
+<div class="p-6">
+<div class="flex items-start justify-between mb-4">
+<div class="flex items-center gap-4">
+<div class="size-16 rounded-full bg-gray-200 dark:bg-slate-700"></div>
+<div>
+<div class="h-5 w-24 bg-gray-200 dark:bg-slate-700 rounded mb-2"></div>
+<div class="h-3 w-16 bg-gray-200 dark:bg-slate-700 rounded"></div>
+</div>
+</div>
+<div class="size-12 rounded-full bg-gray-200 dark:bg-slate-700"></div>
+</div>
+<div class="h-4 w-32 bg-gray-200 dark:bg-slate-700 rounded mb-2"></div>
+<div class="flex gap-2 mb-6">
+<div class="h-6 w-16 bg-gray-200 dark:bg-slate-700 rounded-full"></div>
+<div class="h-6 w-20 bg-gray-200 dark:bg-slate-700 rounded-full"></div>
+</div>
+<div class="flex justify-between">
+<div class="h-4 w-16 bg-gray-200 dark:bg-slate-700 rounded"></div>
+<div class="h-4 w-20 bg-gray-200 dark:bg-slate-700 rounded"></div>
+</div>
+</div>
+<div class="h-[73px]"></div>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm hidden transition-opacity duration-300" id="match-modal">
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl shadow-2xl w-full max-w-md m-4 transform transition-all duration-300 opacity-100 scale-100" id="modal-content">
+<div class="p-6 relative">
+<button class="absolute top-4 right-4 text-text-light-secondary dark:text-dark-secondary hover:text-text-light-primary dark:hover:text-dark-primary" onclick="document.getElementById('match-modal').classList.add('hidden')">
+<span class="material-symbols-outlined">close</span>
+</button>
+<h2 class="text-2xl font-bold mb-2">Why you're a 95% Match with Sarah</h2>
+<p class="text-text-light-secondary dark:text-dark-secondary mb-6">Here's a breakdown of your compatibility.</p>
+<ul class="space-y-4">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-green-500 mt-0.5">check_circle</span>
+<div>
+<h4 class="font-semibold">Complementary Skills</h4>
+<p class="text-sm text-text-light-secondary dark:text-dark-secondary">You want to learn <span class="font-medium text-text-light-primary dark:text-dark-primary">Python</span>, and Sarah offers it as a primary skill.</p>
+</div>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-green-500 mt-0.5">check_circle</span>
+<div>
+<h4 class="font-semibold">Shared Availability</h4>
+<p class="text-sm text-text-light-secondary dark:text-dark-secondary">You're both available on <span class="font-medium text-text-light-primary dark:text-dark-primary">weekends</span>.</p>
+</div>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-green-500 mt-0.5">check_circle</span>
+<div>
+<h4 class="font-semibold">Location Proximity</h4>
+<p class="text-sm text-text-light-secondary dark:text-dark-secondary">You are both located in <span class="font-medium text-text-light-primary dark:text-dark-primary">London</span>, making in-person sessions possible.</p>
+</div>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-green-500 mt-0.5">check_circle</span>
+<div>
+<h4 class="font-semibold">High Rating</h4>
+<p class="text-sm text-text-light-secondary dark:text-dark-secondary">Sarah has an excellent rating of <span class="font-medium text-text-light-primary dark:text-dark-primary">4.9 stars</span>.</p>
+</div>
+</li>
+</ul>
+<button class="mt-8 w-full flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-11 px-4 bg-primary text-white text-base font-bold tracking-[0.015em] hover:bg-primary/90 transition-colors" onclick="document.getElementById('match-modal').classList.add('hidden')">
+          Awesome, thanks!
+        </button>
+</div>
+</div>
+</div>
+<script>
+    // Simple script to handle modal reveal animation
+    const matchModal = document.getElementById('match-modal');
+    const modalContent = document.getElementById('modal-content');
+    // Add an onclick to all match percentage buttons to trigger the modal
+    document.querySelectorAll('button.group\\/button').forEach(button => {
+      button.onclick = () => {
+        matchModal.classList.remove('hidden');
+        matchModal.classList.remove('opacity-0');
+        modalContent.classList.remove('scale-95');
+        modalContent.classList.add('scale-100');
+      };
+    });
+    // Handle closing the modal
+    const closeButtons = matchModal.querySelectorAll('[onclick*="match-modal"]');
+    closeButtons.forEach(button => {
+      button.onclick = (e) => {
+        e.stopPropagation();
+        matchModal.classList.add('opacity-0');
+        modalContent.classList.add('scale-95');
+        modalContent.classList.remove('scale-100');
+        setTimeout(() => {
+          matchModal.classList.add('hidden');
+        }, 300); // match duration of transition
+      };
+    });
+    matchModal.onclick = () => {
+        matchModal.querySelector('[onclick*="match-modal"]').click();
+    };
+    modalContent.onclick = (e) => e.stopPropagation();
+  </script>
+</body></html>

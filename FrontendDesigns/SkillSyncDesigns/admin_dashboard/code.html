@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SkillSync Admin Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#1193d4",
+              "background-light": "#f6f7f8",
+              "background-dark": "#101c22",
+            },
+            fontFamily: {
+              "display": ["Manrope", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark">
+<div class="relative flex min-h-screen w-full">
+<!-- SideNavBar -->
+<aside class="flex w-64 flex-col bg-white dark:bg-[#111c22] border-r border-gray-200 dark:border-[#325567]">
+<div class="flex h-full flex-col justify-between p-4">
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-2 p-2">
+<span class="material-symbols-outlined text-primary text-3xl">sync</span>
+<h2 class="text-xl font-bold text-gray-800 dark:text-white">SkillSync Admin</h2>
+</div>
+<div class="flex flex-col gap-4">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 mx-auto" data-alt="Admin user avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDKQUMnIZUvv-CVAoBuXElmKYkadAjDvSIpU3oEZEVbYIOq6btG2qouBS_eF-iXdM0uB3anNvI965S7ITBCvLv8b8CX2L-JP_cJC-d-2DlMjGqKT0ZXkt9xG5iwfqvL0J5-jm93pwBbreLtFHi88wTLiS_MonCutzeTKc7UMXb6fNONRUv5Ryg4RbWJcyOWc8VRtMJitLH_s4IvWJseoDYYXJ6ZgEoLDc-ZY2Hf3uHwRhWROa7p4SyOyRz4dJPH-bnn4u9rKTD5H_Re");'></div>
+<div class="flex flex-col text-center">
+<h1 class="text-gray-800 dark:text-white text-base font-medium leading-normal">Admin Name</h1>
+<p class="text-gray-500 dark:text-[#92b7c9] text-sm font-normal leading-normal">Super Admin</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2 mt-4">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/20 text-primary" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<p class="text-sm font-medium leading-normal">Dashboard</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-primary/10 rounded-lg" href="#">
+<span class="material-symbols-outlined">group</span>
+<p class="text-sm font-medium leading-normal">User Management</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-primary/10 rounded-lg" href="#">
+<span class="material-symbols-outlined">gpp_maybe</span>
+<p class="text-sm font-medium leading-normal">Content Moderation</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-primary/10 rounded-lg" href="#">
+<span class="material-symbols-outlined">sell</span>
+<p class="text-sm font-medium leading-normal">Skill Taxonomy</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-primary/10 rounded-lg" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<p class="text-sm font-medium leading-normal">Analytics</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-primary/10 rounded-lg" href="#">
+<span class="material-symbols-outlined">settings</span>
+<p class="text-sm font-medium leading-normal">System Configuration</p>
+</a>
+</nav>
+</div>
+<div class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-primary/10 rounded-lg" href="#">
+<span class="material-symbols-outlined">logout</span>
+<p class="text-sm font-medium leading-normal">Logout</p>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto">
+<div class="p-8">
+<!-- PageHeading -->
+<div class="flex flex-wrap justify-between gap-3">
+<div class="flex min-w-72 flex-col gap-3">
+<h1 class="text-gray-900 dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">Dashboard</h1>
+<p class="text-gray-500 dark:text-[#92b7c9] text-base font-normal leading-normal">Welcome back, Admin! Here's a summary of platform activity.</p>
+</div>
+</div>
+<!-- Stats -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+<div class="flex flex-col gap-2 rounded-lg p-6 bg-white dark:bg-[#111c22] border border-gray-200 dark:border-[#325567]">
+<p class="text-gray-600 dark:text-white text-base font-medium leading-normal">Total Users</p>
+<p class="text-gray-900 dark:text-white tracking-light text-2xl font-bold leading-tight">12,456</p>
+<p class="text-[#0bda57] text-base font-medium leading-normal">+2.5%</p>
+</div>
+<div class="flex flex-col gap-2 rounded-lg p-6 bg-white dark:bg-[#111c22] border border-gray-200 dark:border-[#325567]">
+<p class="text-gray-600 dark:text-white text-base font-medium leading-normal">Active Sessions</p>
+<p class="text-gray-900 dark:text-white tracking-light text-2xl font-bold leading-tight">890</p>
+<p class="text-[#fa5f38] text-base font-medium leading-normal">-1.2%</p>
+</div>
+<div class="flex flex-col gap-2 rounded-lg p-6 bg-white dark:bg-[#111c22] border border-gray-200 dark:border-[#325567]">
+<p class="text-gray-600 dark:text-white text-base font-medium leading-normal">Skills Exchanged</p>
+<p class="text-gray-900 dark:text-white tracking-light text-2xl font-bold leading-tight">4,210</p>
+<p class="text-[#0bda57] text-base font-medium leading-normal">+5.8%</p>
+</div>
+<div class="flex flex-col gap-2 rounded-lg p-6 bg-white dark:bg-[#111c22] border border-gray-200 dark:border-[#325567]">
+<p class="text-gray-600 dark:text-white text-base font-medium leading-normal">Pending Approvals</p>
+<p class="text-gray-900 dark:text-white tracking-light text-2xl font-bold leading-tight">15</p>
+<p class="text-[#0bda57] text-base font-medium leading-normal">+3.4%</p>
+</div>
+</div>
+<!-- SectionHeader -->
+<h2 class="text-gray-900 dark:text-white text-[22px] font-bold leading-tight tracking-[-0.015em] pt-10 pb-4">Platform Analytics</h2>
+<!-- Charts -->
+<div class="flex flex-col lg:flex-row flex-wrap gap-4">
+<div class="flex flex-1 min-w-[300px] flex-col gap-2 rounded-lg border border-gray-200 dark:border-[#325567] p-6 bg-white dark:bg-[#111c22]">
+<p class="text-gray-800 dark:text-white text-base font-medium leading-normal">User Growth</p>
+<p class="text-gray-900 dark:text-white tracking-light text-[32px] font-bold leading-tight truncate">12,456</p>
+<div class="flex gap-1">
+<p class="text-gray-500 dark:text-[#92b7c9] text-base font-normal leading-normal">Last 30 Days</p>
+<p class="text-[#0bda57] text-base font-medium leading-normal">+15.2%</p>
+</div>
+<div class="flex min-h-[180px] flex-1 flex-col gap-8 py-4">
+<svg fill="none" height="148" preserveaspectratio="none" viewbox="-3 0 478 150" width="100%" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 109C18.1538 109 18.1538 21 36.3077 21C54.4615 21 54.4615 41 72.6154 41C90.7692 41 90.7692 93 108.923 93C127.077 93 127.077 33 145.231 33C163.385 33 163.385 101 181.538 101C199.692 101 199.692 61 217.846 61C236 61 236 45 254.154 45C272.308 45 272.308 121 290.462 121C308.615 121 308.615 149 326.769 149C344.923 149 344.923 1 363.077 1C381.231 1 381.231 81 399.385 81C417.538 81 417.538 129 435.692 129C453.846 129 453.846 25 472 25V149H326.769H0V109Z" fill="url(#paint0_linear_1131_5935)"></path>
+<path d="M0 109C18.1538 109 18.1538 21 36.3077 21C54.4615 21 54.4615 41 72.6154 41C90.7692 41 90.7692 93 108.923 93C127.077 93 127.077 33 145.231 33C163.385 33 163.385 101 181.538 101C199.692 101 199.692 61 217.846 61C236 61 236 45 254.154 45C272.308 45 272.308 121 290.462 121C308.615 121 308.615 149 326.769 149C344.923 149 344.923 1 363.077 1C381.231 1 381.231 81 399.385 81C417.538 81 417.538 129 435.692 129C453.846 129 453.846 25 472 25" stroke="#1193d4" stroke-linecap="round" stroke-width="3"></path>
+<defs>
+<lineargradient gradientunits="userSpaceOnUse" id="paint0_linear_1131_5935" x1="236" x2="236" y1="1" y2="149">
+<stop stop-color="#1193d4" stop-opacity="0.3"></stop>
+<stop offset="1" stop-color="#1193d4" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+</svg>
+<div class="flex justify-around">
+<p class="text-gray-500 dark:text-[#92b7c9] text-[13px] font-bold leading-normal tracking-[0.015em]">Week 1</p>
+<p class="text-gray-500 dark:text-[#92b7c9] text-[13px] font-bold leading-normal tracking-[0.015em]">Week 2</p>
+<p class="text-gray-500 dark:text-[#92b7c9] text-[13px] font-bold leading-normal tracking-[0.015em]">Week 3</p>
+<p class="text-gray-500 dark:text-[#92b7c9] text-[13px] font-bold leading-normal tracking-[0.015em]">Week 4</p>
+</div>
+</div>
+</div>
+<div class="flex flex-1 min-w-[300px] flex-col gap-2 rounded-lg border border-gray-200 dark:border-[#325567] p-6 bg-white dark:bg-[#111c22]">
+<p class="text-gray-800 dark:text-white text-base font-medium leading-normal">Top Skills by Usage</p>
+<p class="text-gray-900 dark:text-white tracking-light text-[32px] font-bold leading-tight truncate">7,890 Exchanges</p>
+<div class="flex gap-1">
+<p class="text-gray-500 dark:text-[#92b7c9] text-base font-normal leading-normal">This Quarter</p>
+<p class="text-[#0bda57] text-base font-medium leading-normal">+8.9%</p>
+</div>
+<div class="grid min-h-[180px] grid-flow-col gap-6 grid-rows-[1fr_auto] items-end justify-items-center px-3 pt-8">
+<div class="bg-primary/30 w-full rounded-t" style="height: 100%;"></div>
+<p class="text-gray-500 dark:text-[#92b7c9] text-[13px] font-bold leading-normal tracking-[0.015em]">Design</p>
+<div class="bg-primary/30 w-full rounded-t" style="height: 50%;"></div>
+<p class="text-gray-500 dark:text-[#92b7c9] text-[13px] font-bold leading-normal tracking-[0.015em]">Dev</p>
+<div class="bg-primary/30 w-full rounded-t" style="height: 75%;"></div>
+<p class="text-gray-500 dark:text-[#92b7c9] text-[13px] font-bold leading-normal tracking-[0.015em]">Marketing</p>
+<div class="bg-primary/30 w-full rounded-t" style="height: 30%;"></div>
+<p class="text-gray-500 dark:text-[#92b7c9] text-[13px] font-bold leading-normal tracking-[0.015em]">Writing</p>
+<div class="bg-primary/30 w-full rounded-t" style="height: 55%;"></div>
+<p class="text-gray-500 dark:text-[#92b7c9] text-[13px] font-bold leading-normal tracking-[0.015em]">Data</p>
+</div>
+</div>
+</div>
+<!-- Recent Activity Section -->
+<h2 class="text-gray-900 dark:text-white text-[22px] font-bold leading-tight tracking-[-0.015em] pt-10 pb-4">Recent Activity</h2>
+<div class="bg-white dark:bg-[#111c22] rounded-lg border border-gray-200 dark:border-[#325567] overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-gray-50 dark:bg-gray-900/20">
+<tr>
+<th class="px-6 py-3 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">User</th>
+<th class="px-6 py-3 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Action</th>
+<th class="px-6 py-3 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
+<th class="px-6 py-3 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Date</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-gray-200 dark:divide-[#325567]">
+<tr>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">John Doe</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">Reported a user for spam</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-500/20 dark:text-yellow-300">Pending Review</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">2 mins ago</td>
+</tr>
+<tr>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">Jane Smith</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">Submitted a new skill: "AI Prompts"</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-500/20 dark:text-green-300">Approved</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">1 hour ago</td>
+</tr>
+<tr>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">Mike Johnson</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">Account suspended due to policy violation</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800 dark:bg-red-500/20 dark:text-red-300">Suspended</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">3 hours ago</td>
+</tr>
+<tr>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">Emily Davis</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">New user registration</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800 dark:bg-blue-500/20 dark:text-blue-300">Active</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">5 hours ago</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

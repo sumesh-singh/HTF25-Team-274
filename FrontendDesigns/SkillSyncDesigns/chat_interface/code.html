@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+<html class="light dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SkillSync Chat</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#4A90E2",
+                        "background-light": "#F8F9FA",
+                        "background-dark": "#101c22",
+                        "surface-light": "#FFFFFF",
+                        "surface-dark": "#1a2a33",
+                        "text-primary-light": "#333333",
+                        "text-primary-dark": "#E0E0E0",
+                        "text-secondary-light": "#888888",
+                        "text-secondary-dark": "#A0A0A0",
+                        "success": "#34C759",
+                        "error": "#FF3B30",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-text-primary-light dark:text-text-primary-dark">
+<div class="flex h-screen w-full antialiased">
+<div class="flex h-full w-full flex-row overflow-hidden">
+<!-- Left Pane: Conversation List -->
+<div class="flex w-full max-w-xs flex-shrink-0 flex-col border-r border-gray-200 bg-surface-light dark:border-gray-700 dark:bg-surface-dark">
+<!-- SideNavBar Header -->
+<div class="flex h-auto flex-col justify-between p-4">
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="h-12 w-12 rounded-full bg-cover bg-center bg-no-repeat" data-alt="Profile picture of John Doe" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBE11VCh5c2m0_k3JTeUwwvn-F4_HIpQqsoZWxsS_hxJF8sj3QB-1jAVfp1ENgxobPjxic7VPH0fn7XY5-GEtA7aAsbeNdabwPIoDTO5UC85r7djcPB4hpiJbP9-7eNaTzT5p2g0Spa1RNFNailaAjF-la3aWVfYXiQfm8TC7TkIMnnWxCrpWNpDduxS2SRB_Udq0b7fXAVDg8brhTIZ9jNp-bnAGsu76neuGkZjLt3e2itOBJyUHMHQgQlmqgQV8HLYGBk7USDZRXC");'></div>
+<span class="absolute bottom-0 right-0 block h-3 w-3 rounded-full border-2 border-surface-light bg-success dark:border-surface-dark"></span>
+</div>
+<div class="flex flex-col">
+<h1 class="text-base font-bold leading-normal text-text-primary-light dark:text-text-primary-dark">John Doe</h1>
+<p class="text-sm font-normal leading-normal text-text-secondary-light dark:text-text-secondary-dark">UX/UI Designer</p>
+</div>
+</div>
+</div>
+</div>
+<!-- SearchBar -->
+<div class="border-b border-t border-gray-200 px-4 py-3 dark:border-gray-700">
+<label class="flex h-10 w-full min-w-40 flex-col">
+<div class="flex h-full w-full flex-1 items-stretch rounded-lg">
+<div class="flex items-center justify-center rounded-l-lg border-r-0 bg-background-light pl-3 text-text-secondary-light dark:bg-background-dark dark:text-text-secondary-dark">
+<span class="material-symbols-outlined text-xl">search</span>
+</div>
+<input class="form-input flex h-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg rounded-l-none border-none border-l-0 bg-background-light px-2 pl-2 text-sm font-normal leading-normal text-text-primary-light placeholder:text-text-secondary-light focus:border-none focus:outline-0 focus:ring-0 dark:bg-background-dark dark:text-text-primary-dark dark:placeholder:text-text-secondary-dark" placeholder="Search conversations" value=""/>
+</div>
+</label>
+</div>
+<!-- Conversation List -->
+<div class="flex flex-auto flex-col overflow-y-auto">
+<!-- Active List Item -->
+<div class="flex cursor-pointer items-center gap-4 border-l-4 border-primary bg-primary/10 px-4 py-3 dark:bg-primary/20">
+<div class="relative">
+<div class="h-14 w-14 rounded-full bg-cover bg-center bg-no-repeat" data-alt="Profile picture of Jane Smith" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBx4bGGPBtIqjGYn4NI6z5MbJf6DLxk6GkAgUVxZwv625n0XrePQyvPMJIB3dcNaaSZIth6JAzxajKMadZFbcHM_FChWuBc8OMQ-QWs_a60lRut_Zf9u8azKylC5p4VzRKHxrpcJQh0zCaIN4w3KSebr3Xk5lhMx9aqQFMrpGIymPwv1SWzMR5Jjp4GmH0nqR4OrKiEmO_2D_lW54EzCWCyQ-gtq8cXgmlPO0LbBN141JM6TWmQkARxiafCR0nIC5FkakSpsKsBJL5w");'></div>
+<span class="absolute bottom-0 right-0 block h-3 w-3 rounded-full border-2 border-surface-light bg-success dark:border-surface-dark"></span>
+</div>
+<div class="flex-1 overflow-hidden">
+<div class="flex items-baseline justify-between">
+<p class="truncate text-base font-semibold leading-normal text-text-primary-light dark:text-text-primary-dark">Jane Smith</p>
+<p class="text-xs font-medium leading-normal text-primary">10:42 AM</p>
+</div>
+<div class="flex items-center justify-between">
+<p class="truncate text-sm font-normal leading-normal text-primary">Typing...</p>
+<span class="flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs font-bold text-white">2</span>
+</div>
+</div>
+</div>
+<!-- List Item -->
+<div class="flex cursor-pointer items-center gap-4 px-4 py-3 hover:bg-background-light dark:hover:bg-background-dark">
+<div class="relative">
+<div class="h-14 w-14 rounded-full bg-cover bg-center bg-no-repeat" data-alt="Profile picture of Project Team" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBQXUewcMPdntthEprOj2nAVB6Cn89BuMCXDp_WsIbgeHJGKKjgMbRnyt0etXV4CTgMJksc2iPf_TeQWyqTeEGe9HumStOzZ2gUVZjcy3ToPnDFsf7TbaNXwvUdoHVc2QhrXdFiPrTiCa1z2ZavlPFTH-j9HDJ6Du77aojYn77UyKKw9lcnlcB6LGmFIlPhhUAounUluOjStVE5Jl63A2NmgMJcDEgYXAMRWMQ3k_HGZprWsu9MEyvWs8gLpXlSwKtP-HUvn0rn5Ix2");'></div>
+</div>
+<div class="flex-1 overflow-hidden">
+<div class="flex items-baseline justify-between">
+<p class="truncate text-base font-medium leading-normal text-text-primary-light dark:text-text-primary-dark">Project Team</p>
+<p class="text-xs font-normal leading-normal text-text-secondary-light dark:text-text-secondary-dark">Yesterday</p>
+</div>
+<p class="truncate text-sm font-normal leading-normal text-text-secondary-light dark:text-text-secondary-dark">Alex: Sounds good, I'll send it over.</p>
+</div>
+</div>
+<!-- List Item -->
+<div class="flex cursor-pointer items-center gap-4 px-4 py-3 hover:bg-background-light dark:hover:bg-background-dark">
+<div class="relative">
+<div class="h-14 w-14 rounded-full bg-cover bg-center bg-no-repeat" data-alt="Profile picture of Emily Carter" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD57uFgx0ydHSpHL3FbUzfuHV0AEHeYykOgC6Ucu6r7R85lSlL6yzHccRuqsxQzj7ojopMIbk3qJdm7A82cNmLCQlmF-sam4xId8GaHH7AJyIl8Pj2OKp3R5odwPKPvF35C-CsVZG7YGzsm26HrzialG3uMTBaeigOWnr3onttSZRULntqgG8rkFbka5yiJsKv9T2YRCEjzFjam8acp82FlSnyXKm2dG0yj1a1EBdZZB_rds-nxn9-qcMY9_kyVEsyKYzdgXQbxRZ5A");'></div>
+<span class="absolute bottom-0 right-0 block h-3 w-3 rounded-full border-2 border-surface-light bg-gray-400 dark:border-surface-dark"></span>
+</div>
+<div class="flex-1 overflow-hidden">
+<div class="flex items-baseline justify-between">
+<p class="truncate text-base font-medium leading-normal text-text-primary-light dark:text-text-primary-dark">Emily Carter</p>
+<p class="text-xs font-normal leading-normal text-text-secondary-light dark:text-text-secondary-dark">Tuesday</p>
+</div>
+<p class="truncate text-sm font-normal leading-normal text-text-secondary-light dark:text-text-secondary-dark">Great, thank you so much!</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Pane: Active Chat Window -->
+<div class="relative flex flex-auto flex-col bg-background-light dark:bg-background-dark">
+<!-- Chat Header -->
+<div class="flex flex-shrink-0 items-center justify-between border-b border-gray-200 bg-surface-light p-4 dark:border-gray-700 dark:bg-surface-dark">
+<div class="flex items-center gap-4">
+<div class="relative">
+<div class="h-12 w-12 rounded-full bg-cover bg-center bg-no-repeat" data-alt="Profile picture of Jane Smith" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCBeb-Mwfq3LoQ1XwYXdBW8862p5BmUHPeJE2lOLcYO2CfO573VD8ao4cXStB9FMSAmAWAAnPVlw1Fk6Zh9kPXyZaltxG9kzskJg_P6lVr-lGI7aKMbLZY2LK2fgY72IS87bf73sRu9Yz1eVtovTEFymmEnC5U9wgfz6lL0rIgVnqJHHhJqQUL2yHTR87n7011bs_A3IXhqTJdthOQqOx1LjghcvDWEIEbDqtF-I7dCqCSfIwEmp36QBrisxIZno74MiUXaPdO-zdxU");'></div>
+<span class="absolute bottom-0 right-0 block h-3 w-3 rounded-full border-2 border-surface-light bg-success dark:border-surface-dark"></span>
+</div>
+<div>
+<p class="text-lg font-bold text-text-primary-light dark:text-text-primary-dark">Jane Smith</p>
+<p class="text-sm text-success">Online</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex h-10 w-10 items-center justify-center rounded-full text-text-secondary-light hover:bg-background-light dark:text-text-secondary-dark dark:hover:bg-background-dark">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="flex h-10 w-10 items-center justify-center rounded-full text-text-secondary-light hover:bg-background-light dark:text-text-secondary-dark dark:hover:bg-background-dark">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Message Area -->
+<div class="flex-auto overflow-y-auto p-6">
+<div class="flex flex-col gap-6">
+<!-- Received Message -->
+<div class="flex items-end gap-3">
+<div class="h-8 w-8 flex-shrink-0 rounded-full bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAgufxObW5WuPrrApaZ6Wej6jWpDFUyuWsyw4D_cFr-nkfpX-6adMFYALmVvY_NY87Ay3iHziUk524VpOgmxVhy6tiG5G2C89rMy7RyqLDfY7afI_i0oU8T2D_xpIUkMRy8jSf78pdcV2bT7Yzt6btlEwGscjf3l1DyUkFuZKMG9HJE-ZU7BLcL-9otD_2TrWwFz562cyhZa0B1UNkRRBTEHYwgP-tXUBAJsT-By7LilViJvap63GLtN6xH0B31ozaY73V2EnsB1bWj");'></div>
+<div class="max-w-md rounded-lg rounded-bl-none bg-surface-light p-3 shadow-sm dark:bg-surface-dark">
+<p class="text-sm">Hey John! I was looking over the Figma files for the new project. They look amazing! I had one question about the user flow for the sign-up process.</p>
+<p class="mt-1 text-right text-xs text-text-secondary-light dark:text-text-secondary-dark">10:38 AM</p>
+</div>
+</div>
+<!-- Sent Message -->
+<div class="flex flex-row-reverse items-end gap-3">
+<div class="h-8 w-8 flex-shrink-0 rounded-full bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAgufxObW5WuPrrApaZ6Wej6jWpDFUyuWsyw4D_cFr-nkfpX-6adMFYALmVvY_NY87Ay3iHziUk524VpOgmxVhy6tiG5G2C89rMy7RyqLDfY7afI_i0oU8T2D_xpIUkMRy8jSf78pdcV2bT7Yzt6btlEwGscjf3l1DyUkFuZKMG9HJE-ZU7BLcL-9otD_2TrWwFz562cyhZa0B1UNkRRBTEHYwgP-tXUBAJsT-By7LilViJvap63GLtN6xH0B31ozaY73V2EnsB1bWj");'></div>
+<div class="max-w-md rounded-lg rounded-br-none bg-primary p-3 text-white shadow-sm">
+<p class="text-sm">Hi Jane! Thanks so much. Glad you like them. Sure, what's your question? Happy to clarify.</p>
+<div class="mt-1 flex items-center justify-end gap-1">
+<p class="text-xs text-primary/70">10:40 AM</p>
+<span class="material-symbols-outlined !text-base !leading-none text-white">done_all</span>
+</div>
+</div>
+</div>
+<!-- Date Divider -->
+<div class="flex items-center justify-center">
+<span class="rounded-full bg-surface-light px-3 py-1 text-xs font-semibold text-text-secondary-light dark:bg-surface-dark dark:text-text-secondary-dark">Today</span>
+</div>
+<!-- Received Message with Attachment -->
+<div class="flex items-end gap-3">
+<div class="h-8 w-8 flex-shrink-0 rounded-full bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAgufxObW5WuPrrApaZ6Wej6jWpDFUyuWsyw4D_cFr-nkfpX-6adMFYALmVvY_NY87Ay3iHziUk524VpOgmxVhy6tiG5G2C89rMy7RyqLDfY7afI_i0oU8T2D_xpIUkMRy8jSf78pdcV2bT7Yzt6btlEwGscjf3l1DyUkFuZKMG9HJE-ZU7BLcL-9otD_2TrWwFz562cyhZa0B1UNkRRBTEHYwgP-tXUBAJsT-By7LilViJvap63GLtN6xH0B31ozaY73V2EnsB1bWj");'></div>
+<div class="flex max-w-md flex-col gap-2">
+<div class="rounded-lg rounded-bl-none bg-surface-light p-3 shadow-sm dark:bg-surface-dark">
+<p class="text-sm">Specifically on screen 4, where the user selects their skills. Should the "Add Skill" button open a modal or navigate to a new page?</p>
+</div>
+<div class="flex items-center gap-2 rounded-lg rounded-bl-none border border-gray-200 bg-surface-light p-2 dark:border-gray-700 dark:bg-surface-dark">
+<div class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+<span class="material-symbols-outlined text-primary">image</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-medium">signup_flow_screen4.png</p>
+<p class="text-xs text-text-secondary-light dark:text-text-secondary-dark">1.2 MB</p>
+</div>
+<button class="flex h-8 w-8 items-center justify-center rounded-full text-text-secondary-light hover:bg-background-light dark:text-text-secondary-dark dark:hover:bg-background-dark">
+<span class="material-symbols-outlined !text-xl">download</span>
+</button>
+</div>
+<p class="text-left text-xs text-text-secondary-light dark:text-text-secondary-dark">10:41 AM</p>
+</div>
+</div>
+<!-- Sent Message with Link Preview -->
+<div class="flex flex-row-reverse items-end gap-3">
+<div class="h-8 w-8 flex-shrink-0 rounded-full bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAgufxObW5WuPrrApaZ6Wej6jWpDFUyuWsyw4D_cFr-nkfpX-6adMFYALmVvY_NY87Ay3iHziUk524VpOgmxVhy6tiG5G2C89rMy7RyqLDfY7afI_i0oU8T2D_xpIUkMRy8jSf78pdcV2bT7Yzt6btlEwGscjf3l1DyUkFuZKMG9HJE-ZU7BLcL-9otD_2TrWwFz562cyhZa0B1UNkRRBTEHYwgP-tXUBAJsT-By7LilViJvap63GLtN6xH0B31ozaY73V2EnsB1bWj");'></div>
+<div class="max-w-md rounded-lg rounded-br-none bg-primary p-3 text-white shadow-sm">
+<p class="text-sm">Good question. I was thinking a modal would be smoother. Something like this component library suggests: <a class="font-semibold underline" href="#">https://uxdesign.cc/modal-windows-in-ui-design</a>. It keeps the user in context.</p>
+<div class="mt-2 overflow-hidden rounded-lg border border-primary/20 bg-surface-light text-text-primary-light dark:bg-surface-dark dark:text-text-primary-dark">
+<div class="h-32 bg-cover bg-center" data-alt="Abstract gradient for a link preview" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCzvfS27JazW_IA0yV38UfUGzSVOK4CRlvc7mj9IYyJ2X41aR87_cSas8vOqr4k9juAShWirxMNpxP6PZ35vw6U2PIEtxpuZaLFG3tRhBU-luoAwbh87V44dOzdN3_8Dn19uUmrc1IKiwLTuU2fxfyWkZTrT4MIaQVrAD66EP2pWxSHjjaHSRs0Tbt7yQmGQ5DE0V7n7Mioh7vJUAlpXTwll3B5hdvpNbykQ0O-OMAbfRy6mSJLJiPe7AX5tUB3iYbZIpa4-MRK1ip_');"></div>
+<div class="p-3">
+<p class="text-xs font-semibold uppercase text-text-secondary-light dark:text-text-secondary-dark">UXDESIGN.CC</p>
+<p class="text-sm font-bold">Modal Windows in UI Design: 10 recommendations</p>
+</div>
+</div>
+<div class="mt-1 flex items-center justify-end gap-1">
+<p class="text-xs text-primary/70">10:41 AM</p>
+<span class="material-symbols-outlined !text-base !leading-none text-primary/70">done</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Message Composer -->
+<div class="flex-shrink-0 border-t border-gray-200 bg-surface-light p-4 dark:border-gray-700 dark:bg-surface-dark">
+<div class="flex w-full items-center gap-2 rounded-lg bg-background-light px-2 dark:bg-background-dark">
+<button class="flex h-10 w-10 items-center justify-center rounded-full text-text-secondary-light hover:bg-gray-200 dark:text-text-secondary-dark dark:hover:bg-gray-600">
+<span class="material-symbols-outlined">sentiment_satisfied</span>
+</button>
+<button class="flex h-10 w-10 items-center justify-center rounded-full text-text-secondary-light hover:bg-gray-200 dark:text-text-secondary-dark dark:hover:bg-gray-600">
+<span class="material-symbols-outlined">attach_file</span>
+</button>
+<textarea class="flex-1 resize-none border-0 bg-transparent py-3 text-sm placeholder:text-text-secondary-light focus:ring-0 dark:placeholder:text-text-secondary-dark" placeholder="Type a message..." rows="1"></textarea>
+<button class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary text-white">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body></html>

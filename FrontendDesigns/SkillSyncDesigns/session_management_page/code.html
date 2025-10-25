@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+<html class="light dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>My Sessions - SkillSync</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#1193d4",
+              "background-light": "#f6f7f8",
+              "background-dark": "#101c22",
+              "success": "#50E3C2",
+              "warning": "#F5A623",
+              "danger": "#D0021B",
+              "text-light-primary": "#0d171b",
+              "text-light-secondary": "#4c809a",
+              "border-light": "#e7eff3",
+            },
+            fontFamily: {
+              "display": ["Manrope", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body class="font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark group/design-root overflow-x-hidden text-text-light-primary">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-border-light bg-white dark:bg-background-dark dark:border-slate-800 px-4 sm:px-6 lg:px-10 py-3 fixed top-0 left-0 right-0 z-10">
+<div class="flex items-center gap-4 text-text-light-primary dark:text-white">
+<div class="size-6 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-text-light-primary dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">SkillSync</h2>
+</div>
+<div class="hidden md:flex flex-1 justify-center items-center gap-9">
+<a class="text-text-light-primary dark:text-slate-300 text-sm font-medium leading-normal" href="#">Dashboard</a>
+<a class="text-text-light-primary dark:text-slate-300 text-sm font-medium leading-normal" href="#">My Skills</a>
+<a class="text-primary dark:text-primary text-sm font-bold leading-normal" href="#">My Sessions</a>
+<a class="text-text-light-primary dark:text-slate-300 text-sm font-medium leading-normal" href="#">Community</a>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-slate-50 text-sm font-bold leading-normal tracking-[0.015em]">
+<span class="truncate">Propose a New Session</span>
+</button>
+<button class="hidden sm:flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-border-light dark:bg-slate-800 text-text-light-primary dark:text-slate-300 gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="hidden sm:flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-border-light dark:bg-slate-800 text-text-light-primary dark:text-slate-300 gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
+<span class="material-symbols-outlined">chat_bubble</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User avatar image" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDawg_wg46kaTsesUw0uo1QnP2jKN3r5zvnNMv3VRXfzLw68LV99DxXwBz2jQ1Y-r8W_ETlT6KAIJP8PKIwudPi1h6zvXybuG5VUvUCFWWSrp7M_LLSHwHt6sIG6tNP-852Uk4XPyUbVRMGK6fwClOE1BtfgeGx3NNIYS4UmGXAIAr0_m3wc_szfLCpJlNeH-ndUlBKcE-ifDWg9_FJwST2Vvoa7-ApqjPO5Zz0a1CXCNxP9BeFRoHO07hiHLA5nDGyrNqVNQ95_zWl");'></div>
+</div>
+</header>
+<main class="px-4 sm:px-6 lg:px-10 flex flex-1 justify-center py-5 pt-24">
+<div class="layout-content-container flex flex-col w-full max-w-4xl flex-1">
+<!-- Page Heading -->
+<div class="flex flex-wrap justify-between items-center gap-3 p-4">
+<h1 class="text-text-light-primary dark:text-white text-4xl font-black leading-tight tracking-[-0.033em] min-w-72">My Sessions</h1>
+</div>
+<!-- Tabs -->
+<div class="pb-3 sticky top-[68px] bg-background-light dark:bg-background-dark z-5">
+<div class="flex border-b border-border-light dark:border-slate-800 px-4 gap-8">
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-primary text-text-light-primary dark:text-white pb-[13px] pt-4" href="#">
+<p class="text-sm font-bold leading-normal tracking-[0.015em]">Upcoming</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-text-light-secondary dark:text-slate-400 pb-[13px] pt-4" href="#">
+<p class="text-sm font-bold leading-normal tracking-[0.015em]">Past</p>
+</a>
+<a class="relative flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-text-light-secondary dark:text-slate-400 pb-[13px] pt-4" href="#">
+<p class="text-sm font-bold leading-normal tracking-[0.015em]">Proposals</p>
+<span class="absolute top-3 right-[-10px] flex h-4 w-4">
+<span class="relative inline-flex rounded-full h-4 w-4 bg-warning"></span>
+</span>
+</a>
+</div>
+</div>
+<!-- Session Cards Section -->
+<div class="flex flex-col gap-4 mt-4">
+<!-- Upcoming Session Card 1 -->
+<div class="p-4 bg-white dark:bg-slate-900 border border-border-light dark:border-slate-800 rounded-lg">
+<div class="flex flex-col sm:flex-row items-stretch justify-between gap-6">
+<div class="flex flex-[2_2_0px] flex-col justify-between gap-4">
+<div class="flex flex-col gap-1">
+<p class="text-text-light-secondary dark:text-slate-400 text-sm font-semibold leading-normal uppercase">TOMORROW, 4:00 PM - 5:00 PM</p>
+<p class="text-text-light-primary dark:text-white text-xl font-bold leading-tight">Advanced Figma Prototyping</p>
+<div class="flex items-center gap-2 mt-1">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-6" data-alt="Jane Doe's profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDL_c4oNtC1gNMVnYTXlGFaH8LIU3aLlxLBjhCwm-fJWFfeshcmmTAxj0GRV3nkdR68XZUJe3qr4s2FHojMh4D3L9YoJdk80iJXx553lTUV0KUxh8mtiyclWUj0siQCHob73Sw9xAoGfsLQOfvV67pPbDSh_CgznRmTiK0evHO1wBz8bzEsL1EHKb1bEDOFtfUcTma_FI2YXofTIcmx4Co7eeEMvMB6hW3rnjwjlkaRPIejZ7IUmxkX-8iUJkXyEW4T3mDdYb8XOTWM");'></div>
+<p class="text-text-light-secondary dark:text-slate-300 text-sm font-normal leading-normal">with Jane Doe</p>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-2">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-primary text-slate-50 gap-2 text-sm font-bold leading-normal">
+<span class="material-symbols-outlined" style="font-size: 18px;">videocam</span>
+<span class="truncate">Join Video Call</span>
+</button>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-border-light dark:bg-slate-800 text-text-light-primary dark:text-slate-300 gap-2 text-sm font-medium leading-normal">
+<span class="material-symbols-outlined" style="font-size: 18px;">schedule</span>
+<span class="truncate">Reschedule</span>
+</button>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-transparent text-danger gap-2 text-sm font-medium leading-normal hover:bg-danger/10">
+<span class="material-symbols-outlined" style="font-size: 18px;">cancel</span>
+<span class="truncate">Cancel</span>
+</button>
+</div>
+</div>
+<div class="w-full sm:w-auto bg-center bg-no-repeat aspect-video sm:aspect-square bg-cover rounded-lg flex-1 min-w-[150px] sm:max-w-[180px]" data-alt="Abstract gradient for Figma prototyping session" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDnnhCB3dielCvCFVOH4EPJjJs4x0peUR1yLxwg4tSYY61sR03BEUBAQ36p_WQXc5POz793VKyzrZ22UV-iR9tJZDv-bc8M6nMNFuDNfu0D1ed-jq-9mvohKoukPmYDnxabhiOVJNRNqno8d1wtcKdk_AZ9pUEZ-YhHChCj-UXY34SkNIKqhDaJTiDkDDZYSU3hHS_3QSbMoL1HDNETDyk0KDZ_4ngG8QwfGRGiUfSY1e1CJ78h-3t5M26opQjGZ-QYsIka-1bhVQvi");'></div>
+</div>
+</div>
+<!-- Upcoming Session Card 2 -->
+<div class="p-4 bg-white dark:bg-slate-900 border border-border-light dark:border-slate-800 rounded-lg">
+<div class="flex flex-col sm:flex-row items-stretch justify-between gap-6">
+<div class="flex flex-[2_2_0px] flex-col justify-between gap-4">
+<div class="flex flex-col gap-1">
+<p class="text-text-light-secondary dark:text-slate-400 text-sm font-semibold leading-normal uppercase">JUNE 28, 10:00 AM - 11:00 AM</p>
+<p class="text-text-light-primary dark:text-white text-xl font-bold leading-tight">Introduction to Python</p>
+<div class="flex items-center gap-2 mt-1">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-6" data-alt="John Smith's profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDYc3rOeOf5vWGJzCv0rF_BW9sxxMneObrnkerXE33lrA5g4OwJIvREHWV8vcLLkob7msUfoTIEj7KlyLJXZxzaHnZteFIOi3iFI--NMWLtXasxM4PTEVL5svzJe9VMj4FK4_cpgKOqUTWiPpokI9Waesa0RkzKpiVXqt8durFw9LXuc1oRToDdOMk0uSnponN6GmI4ROtz_iTvRw_2klviQsXtB05ZgUFwf3spRUv00VX6NvTTightSvbGlWOsbwSrTosNQg6raAY1");'></div>
+<p class="text-text-light-secondary dark:text-slate-300 text-sm font-normal leading-normal">with John Smith</p>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-2">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-primary text-slate-50 gap-2 text-sm font-bold leading-normal">
+<span class="material-symbols-outlined" style="font-size: 18px;">videocam</span>
+<span class="truncate">Join Video Call</span>
+</button>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-border-light dark:bg-slate-800 text-text-light-primary dark:text-slate-300 gap-2 text-sm font-medium leading-normal">
+<span class="material-symbols-outlined" style="font-size: 18px;">schedule</span>
+<span class="truncate">Reschedule</span>
+</button>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-transparent text-danger gap-2 text-sm font-medium leading-normal hover:bg-danger/10">
+<span class="material-symbols-outlined" style="font-size: 18px;">cancel</span>
+<span class="truncate">Cancel</span>
+</button>
+</div>
+</div>
+<div class="w-full sm:w-auto bg-center bg-no-repeat aspect-video sm:aspect-square bg-cover rounded-lg flex-1 min-w-[150px] sm:max-w-[180px]" data-alt="Abstract python code background for Python session" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBn7r30-TFqIqSzmH7OSJ4PAZCDoYh073UcJ1OP2ogC38vK4wUOpGRqYRUVXrDOzPHH4o6zqs3almL8kEfta8dW_z-dR6IFrYMuzLkVfQju4WZXSwWgl7OC2-5pr1Tr-O_GVMLxSLGfLY6YZcKiWBGqWtB_C_2w5GqPwk5phezzGv4dT-PHKIWJB4tbhvxgs0rlMmh3WH_91yC3wkNPkiRtxOBDQ9KVVjbBiLX-UfhK6aYJqYB_OQsa6NtUfZyxMSCsK7qNwCu_rKwn");'></div>
+</div>
+</div>
+<!-- Empty State Example (Uncomment to view) -->
+<!-- 
+                    <div class="p-10 flex flex-col items-center justify-center text-center gap-4 border-2 border-dashed border-border-light dark:border-slate-800 rounded-lg mt-8">
+                        <span class="material-symbols-outlined text-text-light-secondary dark:text-slate-500" style="font-size: 48px;">calendar_month</span>
+                        <h3 class="text-xl font-bold text-text-light-primary dark:text-white">No Upcoming Sessions</h3>
+                        <p class="text-text-light-secondary dark:text-slate-400 max-w-sm">You currently don't have any scheduled sessions. Ready to learn something new or share your expertise?</p>
+                        <button class="mt-2 flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-slate-50 text-sm font-bold leading-normal tracking-[0.015em]">
+                            <span>Propose a New Session</span>
+                        </button>
+                    </div> 
+                    -->
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

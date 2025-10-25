@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+
+<html class="light dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Feedback Form - SkillSync</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings:
+        'FILL' 1,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+      }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#1193d4",
+              "background-light": "#f6f7f8",
+              "background-dark": "#101c22",
+              "accent": "#FFD700",
+              "neutral-light": "#F2F2F7",
+              "neutral-dark": "#1a2a33",
+              "neutral-border-light": "#E5E5EA",
+              "neutral-border-dark": "#2a3c47",
+              "text-light": "#0d171b",
+              "text-dark": "#e8eef0",
+              "subtext-light": "#4c809a",
+              "subtext-dark": "#9cb6c5",
+            },
+            fontFamily: {
+              "display": ["Manrope", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-neutral-light dark:bg-neutral-dark font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark group/design-root overflow-x-hidden" style='font-family: Manrope, "Noto Sans", sans-serif;'>
+<div class="layout-container flex h-full grow flex-col">
+<div class="px-4 sm:px-10 md:px-20 lg:px-40 flex flex-1 justify-center py-5">
+<div class="layout-content-container flex flex-col w-full max-w-[960px] flex-1 bg-white dark:bg-neutral-dark rounded-xl shadow-lg border border-neutral-border-light dark:border-neutral-border-dark p-4 sm:p-8 my-10">
+<!-- PageHeading -->
+<div class="flex flex-wrap justify-between gap-3 p-4">
+<div class="flex min-w-72 flex-col gap-3">
+<p class="text-text-light dark:text-text-dark text-4xl font-black leading-tight tracking-[-0.033em]">How was your session with Alex?</p>
+<p class="text-subtext-light dark:text-subtext-dark text-base font-normal leading-normal">Your feedback helps our community grow.</p>
+</div>
+</div>
+<!-- TitleText & ReactionBar for Overall Experience -->
+<h1 class="text-text-light dark:text-text-dark text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 text-left pb-3 pt-5">Overall Experience</h1>
+<div class="flex flex-wrap gap-2 px-4 py-2">
+<button class="group p-2 rounded-full hover:bg-primary/10 transition-colors duration-200">
+<span class="material-symbols-outlined text-subtext-light dark:text-subtext-dark group-hover:text-accent text-3xl">star</span>
+</button>
+<button class="group p-2 rounded-full hover:bg-primary/10 transition-colors duration-200">
+<span class="material-symbols-outlined text-subtext-light dark:text-subtext-dark group-hover:text-accent text-3xl">star</span>
+</button>
+<button class="group p-2 rounded-full hover:bg-primary/10 transition-colors duration-200">
+<span class="material-symbols-outlined text-subtext-light dark:text-subtext-dark group-hover:text-accent text-3xl">star</span>
+</button>
+<button class="group p-2 rounded-full hover:bg-primary/10 transition-colors duration-200">
+<span class="material-symbols-outlined text-subtext-light dark:text-subtext-dark group-hover:text-accent text-3xl">star</span>
+</button>
+<button class="group p-2 rounded-full hover:bg-primary/10 transition-colors duration-200">
+<span class="material-symbols-outlined text-subtext-light dark:text-subtext-dark group-hover:text-accent text-3xl">star</span>
+</button>
+</div>
+<!-- TitleText for Detailed Feedback -->
+<h1 class="text-text-light dark:text-text-dark text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 text-left pb-3 pt-5 mt-4">Detailed Feedback</h1>
+<!-- ListItem for Knowledge & Skill Transfer -->
+<div class="flex items-center gap-4 px-4 min-h-14 justify-between border-b border-neutral-border-light dark:border-neutral-border-dark py-2">
+<p class="text-text-light dark:text-text-dark text-base font-normal leading-normal flex-1 truncate">Knowledge &amp; Skill Transfer</p>
+<div class="shrink-0 flex items-center gap-1">
+<button class="group p-1 rounded-full hover:bg-primary/10 transition-colors duration-200"><span class="material-symbols-outlined text-subtext-light dark:text-subtext-dark group-hover:text-accent text-2xl">star</span></button>
+<button class="group p-1 rounded-full hover:bg-primary/10 transition-colors duration-200"><span class="material-symbols-outlined text-subtext-light dark:text-subtext-dark group-hover:text-accent text-2xl">star</span></button>
+<button class="group p-1 rounded-full hover:bg-primary/10 transition-colors duration-200"><span class="material-symbols-outlined text-subtext-light dark:text-subtext-dark group-hover:text-accent text-2xl">star</span></button>
+<button class="group p-1 rounded-full hover:bg-primary/10 transition-colors duration-200"><span class="material-symbols-outlined text-subtext-light dark:text-subtext-dark group-hover:text-accent text-2xl">star</span></button>
+<button class="group p-1 rounded-full hover:bg-primary/10 transition-colors duration-200"><span class="material-symbols-outlined text-subtext-light dark:text-subtext-dark group-hover:text-accent text-2xl">star</span></button>
+</div>
+</div>
+<!-- ListItem for Communication Quality -->
+<div class="flex items-center gap-4 px-4 min-h-14 justify-between border-b border-neutral-border-light dark:border-neutral-border-dark py-2">
+<p class="text-text-light dark:text-text-dark text-base font-normal leading-normal flex-1 truncate">Communication Quality</p>
+<div class="shrink-0 flex items-center gap-1">
+<button class="group p-1 rounded-full hover:bg-primary/10 transition-colors duration-200"><span class="material-symbols-outlined text-subtext-light dark:text-subtext-dark group-hover:text-accent text-2xl">star</span></button>
+<button class="group p-1 rounded-full hover:bg-primary/10 transition-colors duration-200"><span class="material-symbols-outlined text-subtext-light dark:text-subtext-dark group-hover:text-accent text-2xl">star</span></button>
+<button class="group p-1 rounded-full hover:bg-primary/10 transition-colors duration-200"><span class="material-symbols-outlined text-subtext-light dark:text-subtext-dark group-hover:text-accent text-2xl">star</span></button>
+<button class="group p-1 rounded-full hover:bg-primary/10 transition-colors duration-200"><span class="material-symbols-outlined text-subtext-light dark:text-subtext-dark group-hover:text-accent text-2xl">star</span></button>
+<button class="group p-1 rounded-full hover:bg-primary/10 transition-colors duration-200"><span class="material-symbols-outlined text-subtext-light dark:text-subtext-dark group-hover:text-accent text-2xl">star</span></button>
+</div>
+</div>
+<!-- ListItem for Professionalism -->
+<div class="flex items-center gap-4 px-4 min-h-14 justify-between py-2">
+<p class="text-text-light dark:text-text-dark text-base font-normal leading-normal flex-1 truncate">Professionalism</p>
+<div class="shrink-0 flex items-center gap-1">
+<button class="group p-1 rounded-full hover:bg-primary/10 transition-colors duration-200"><span class="material-symbols-outlined text-subtext-light dark:text-subtext-dark group-hover:text-accent text-2xl">star</span></button>
+<button class="group p-1 rounded-full hover:bg-primary/10 transition-colors duration-200"><span class="material-symbols-outlined text-subtext-light dark:text-subtext-dark group-hover:text-accent text-2xl">star</span></button>
+<button class="group p-1 rounded-full hover:bg-primary/10 transition-colors duration-200"><span class="material-symbols-outlined text-subtext-light dark:text-subtext-dark group-hover:text-accent text-2xl">star</span></button>
+<button class="group p-1 rounded-full hover:bg-primary/10 transition-colors duration-200"><span class="material-symbols-outlined text-subtext-light dark:text-subtext-dark group-hover:text-accent text-2xl">star</span></button>
+<button class="group p-1 rounded-full hover:bg-primary/10 transition-colors duration-200"><span class="material-symbols-outlined text-subtext-light dark:text-subtext-dark group-hover:text-accent text-2xl">star</span></button>
+</div>
+</div>
+<!-- Written Review Section -->
+<div class="px-4 py-5 mt-4">
+<label class="text-text-light dark:text-text-dark text-[22px] font-bold leading-tight tracking-[-0.015em] pb-3" for="review-text">Share your experience (optional)</label>
+<div class="relative mt-2">
+<textarea class="w-full rounded-lg border border-neutral-border-light dark:border-neutral-border-dark bg-neutral-light dark:bg-neutral-dark p-4 text-base text-text-light dark:text-text-dark placeholder:text-subtext-light dark:placeholder:text-subtext-dark focus:ring-2 focus:ring-primary focus:border-primary transition" id="review-text" name="review" placeholder="What went well? What could be improved?" rows="4"></textarea>
+<p class="absolute bottom-3 right-3 text-xs text-subtext-light dark:text-subtext-dark">0/500</p>
+</div>
+</div>
+<!-- Tags Section -->
+<div class="px-4 py-5">
+<h3 class="text-text-light dark:text-text-dark text-[22px] font-bold leading-tight tracking-[-0.015em] pb-3">Add a tag</h3>
+<div class="flex flex-wrap gap-3">
+<button class="px-4 py-2 rounded-full border border-neutral-border-light dark:border-neutral-border-dark bg-neutral-light dark:bg-neutral-dark text-text-light dark:text-text-dark font-medium hover:bg-primary/20 hover:border-primary/20 focus:bg-primary/30 focus:border-primary/30 transition-colors duration-200">Great Communicator</button>
+<button class="px-4 py-2 rounded-full border border-neutral-border-light dark:border-neutral-border-dark bg-neutral-light dark:bg-neutral-dark text-text-light dark:text-text-dark font-medium hover:bg-primary/20 hover:border-primary/20 focus:bg-primary/30 focus:border-primary/30 transition-colors duration-200">Well Prepared</button>
+<button class="px-4 py-2 rounded-full border border-neutral-border-light dark:border-neutral-border-dark bg-neutral-light dark:bg-neutral-dark text-text-light dark:text-text-dark font-medium hover:bg-primary/20 hover:border-primary/20 focus:bg-primary/30 focus:border-primary/30 transition-colors duration-200">Actionable Advice</button>
+<button class="px-4 py-2 rounded-full border border-neutral-border-light dark:border-neutral-border-dark bg-neutral-light dark:bg-neutral-dark text-text-light dark:text-text-dark font-medium hover:bg-primary/20 hover:border-primary/20 focus:bg-primary/30 focus:border-primary/30 transition-colors duration-200">Insightful</button>
+</div>
+</div>
+<!-- Visibility Control -->
+<div class="px-4 py-5 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<label class="text-text-light dark:text-text-dark font-medium" for="private-toggle">Make this feedback private</label>
+<div class="relative group">
+<span class="material-symbols-outlined text-subtext-light dark:text-subtext-dark text-lg cursor-pointer">help</span>
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-60 bg-neutral-dark dark:bg-neutral-light text-text-dark dark:text-text-light text-sm rounded-lg p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none shadow-lg">
+                                    Private feedback is only visible to you and Alex. It will not appear on Alex's public profile.
+                                </div>
+</div>
+</div>
+<button aria-checked="false" class="bg-gray-200 dark:bg-gray-600 relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-neutral-dark" role="switch" type="button">
+<span class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out translate-x-0"></span>
+</button>
+</div>
+<!-- Submission Area -->
+<div class="flex flex-col sm:flex-row-reverse items-center gap-4 px-4 pt-8 pb-4 mt-6 border-t border-neutral-border-light dark:border-neutral-border-dark">
+<button class="w-full sm:w-auto px-6 py-3 rounded-lg bg-primary text-white font-bold text-base hover:bg-opacity-90 transition-colors duration-200 disabled:bg-gray-300 dark:disabled:bg-gray-600 disabled:cursor-not-allowed">Submit Feedback</button>
+<button class="w-full sm:w-auto px-6 py-3 rounded-lg text-subtext-light dark:text-subtext-dark font-bold text-base hover:bg-primary/10 transition-colors duration-200">Not Now</button>
+</div>
+<!-- Dispute Link -->
+<div class="text-center mt-2">
+<a class="text-xs text-subtext-light dark:text-subtext-dark hover:text-primary dark:hover:text-primary underline" href="#">Problem with this session? Report an issue.</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body></html>

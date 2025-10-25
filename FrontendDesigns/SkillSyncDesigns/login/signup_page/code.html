@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SkillSync - Login &amp; Sign Up</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .form-input:focus-within ~ label,
+        .form-input:not(:placeholder-shown) ~ label {
+            transform: translateY(-1.6rem) scale(0.8);
+            color: #4338ca;}
+        .form-input:focus-within ~ label {
+            color: #4338ca;}
+        .dark .form-input:focus-within ~ label {
+             color: #6366f1;}
+        #auth-container > div {
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+        .auth-hidden {
+            opacity: 0;
+            transform: translateX(-20px);
+            position: absolute;
+            pointer-events: none;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": {
+                            DEFAULT: "#4338ca",
+                            hover: "#3730a3",
+                        },
+                        "secondary": "#6366f1",
+                        "background-light": "#f8fafc",
+                        "background-dark": "#020617",
+                        "foreground-light": "#0f172a",
+                        "foreground-dark": "#e2e8f0",
+                        "card-light": "#ffffff",
+                        "card-dark": "#0f172a",
+                        "muted-light": "#64748b",
+                        "muted-dark": "#94a3b8",
+                        "border-light": "#e2e8f0",
+                        "border-dark": "#334155",
+                        "error": "#ef4444",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "1rem",
+                        "full": "9999px"
+                    },
+                    boxShadow: {
+                        'soft': '0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05)',
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="font-display bg-background-dark text-foreground-dark antialiased">
+<div class="relative flex min-h-screen w-full flex-col items-center justify-center p-4 md:p-6 lg:grid lg:grid-cols-2">
+<div class="relative hidden h-full flex-col items-center justify-center bg-gradient-to-br from-primary to-secondary p-10 lg:flex overflow-hidden">
+<div class="absolute inset-0 bg-primary/20 backdrop-blur-sm"></div>
+<div class="absolute -top-20 -left-20 h-60 w-60 rounded-full bg-white/10 blur-2xl animate-[spin_20s_linear_infinite]"></div>
+<div class="absolute -bottom-20 -right-20 h-60 w-60 rounded-full bg-white/10 blur-2xl animate-[spin_20s_linear_infinite_reverse]"></div>
+<div class="relative z-10 flex flex-col items-center text-center text-white">
+<a class="mb-8 flex items-center gap-3 text-4xl font-bold tracking-tight" href="#">
+<svg class="h-10 w-10" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+<path d="m12 11 4 2"></path>
+<path d="m12 11-4 2"></path>
+<path d="m12 11 v4"></path>
+<path d="m16 13 v4"></path>
+<path d="m8 13 v4"></path>
+</svg>
+                    SkillSync
+                </a>
+<h1 class="text-4xl font-bold leading-snug">Unlock Your Potential.</h1>
+<p class="mt-4 max-w-md text-lg text-indigo-200">Join a community of learners and mentors to share skills and grow together.</p>
+</div>
+<div class="absolute bottom-6 left-1/2 z-10 -translate-x-1/2 text-center text-sm text-indigo-300">
+<p>© 2024 SkillSync. All rights reserved.</p>
+</div>
+</div>
+<div class="flex w-full items-center justify-center bg-background-dark">
+<div class="layout-container w-full max-w-md space-y-8">
+<div class="relative" id="auth-container">
+<div class="space-y-2" id="login-content">
+<h2 class="text-3xl font-bold tracking-tight text-foreground-dark">Welcome Back!</h2>
+<p class="text-muted-dark">Log in to continue your learning journey.</p>
+</div>
+<div class="space-y-2 auth-hidden" id="signup-content">
+<h2 class="text-3xl font-bold tracking-tight text-foreground-dark">Create an Account</h2>
+<p class="text-muted-dark">Start your skill-sharing journey today.</p>
+</div>
+</div>
+<div class="flex h-12 w-full items-center justify-center rounded-xl bg-slate-800 p-1.5">
+<label class="flex h-full flex-1 cursor-pointer items-center justify-center rounded-lg px-2 text-sm font-semibold leading-normal transition-all has-[:checked]:bg-primary has-[:checked]:text-white text-muted-dark">
+<span class="truncate">Login</span>
+<input checked="" class="invisible w-0" name="auth-toggle" type="radio" value="Login"/>
+</label>
+<label class="flex h-full flex-1 cursor-pointer items-center justify-center rounded-lg px-2 text-sm font-semibold leading-normal transition-all has-[:checked]:bg-primary has-[:checked]:text-white text-muted-dark">
+<span class="truncate">Sign Up</span>
+<input class="invisible w-0" name="auth-toggle" type="radio" value="Sign Up"/>
+</label>
+</div>
+<form class="flex flex-col gap-4">
+<div class="relative pt-4">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-muted-dark peer-focus:text-secondary">mail</span>
+<input class="form-input peer h-12 w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg border border-border-dark bg-transparent text-foreground-dark placeholder:text-transparent focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary/20 pl-10 pr-4 text-base transition-colors duration-300" id="email" name="email" placeholder="name@example.com" type="email"/>
+<label class="absolute left-10 top-1/2 -translate-y-1/2 text-base text-muted-dark transition-all duration-300 pointer-events-none" for="email">Email Address</label>
+</div>
+<div class="relative pt-4">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-muted-dark peer-focus:text-secondary">lock</span>
+<input class="form-input peer h-12 w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg border border-border-dark bg-transparent text-foreground-dark placeholder:text-transparent focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary/20 pl-10 pr-10 text-base transition-colors duration-300" id="password" name="password" placeholder="Enter your password" type="password"/>
+<label class="absolute left-10 top-1/2 -translate-y-1/2 text-base text-muted-dark transition-all duration-300 pointer-events-none" for="password">Password</label>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-muted-dark hover:text-foreground-dark" type="button">
+<span class="material-symbols-outlined text-xl">visibility</span>
+</button>
+</div>
+<div class="flex items-center justify-between mt-2">
+<div></div>
+<a class="text-sm font-medium text-secondary hover:text-primary-hover hover:underline" href="#">Forgot Password?</a>
+</div>
+<button class="mt-4 flex h-12 w-full items-center justify-center rounded-lg bg-primary px-4 py-2 text-base font-semibold text-white shadow-sm transition-all duration-300 hover:bg-primary-hover focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-background-dark active:scale-95" type="submit">Login</button>
+</form>
+<div class="relative my-2 flex items-center">
+<div class="flex-grow border-t border-border-dark"></div>
+<span class="mx-4 flex-shrink text-sm font-medium text-muted-dark">OR CONTINUE WITH</span>
+<div class="flex-grow border-t border-border-dark"></div>
+</div>
+<div class="flex flex-col gap-3 sm:flex-row">
+<button class="flex h-12 w-full items-center justify-center gap-3 rounded-lg border border-border-dark bg-card-dark px-4 py-2 text-base font-medium text-foreground-dark transition-all duration-300 hover:bg-slate-800/50 hover:border-secondary active:scale-95">
+<svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_1001_2)"><path d="M22.0499 12.2727C22.0499 11.4545 21.9818 10.6636 21.8454 9.9H12.2772V14.3182H17.8408C17.6181 15.6591 16.9272 16.8273 15.8908 17.5636V20.3727H19.6635C21.2181 18.9818 22.0499 16.8909 22.0499 14.3182V12.2727Z" fill="#4285F4"></path><path d="M12.2773 22.0001C15.0182 22.0001 17.2909 21.1183 18.7364 19.6637L15.8909 17.5637C14.9909 18.1728 13.7546 18.5455 12.2773 18.5455C9.42728 18.5455 6.98182 16.6637 6.13637 14.0728H2.23637V16.9455C3.72728 19.9273 7.66819 22.0001 12.2773 22.0001Z" fill="#34A853"></path><path d="M6.13637 14.0727C5.90909 13.4182 5.78182 12.7182 5.78182 12C5.78182 11.2818 5.90909 10.5818 6.13637 9.92727V7.05455H2.23637C1.48182 8.52727 1 10.1909 1 12C1 13.8091 1.48182 15.4727 2.23637 16.9455L5.08182 14.8455L6.13637 14.0727Z" fill="#FBBC05"></path><path d="M12.2773 5.45455C13.8546 5.45455 15.1455 5.98182 16.2091 6.97273L18.8091 4.37273C17.2818 2.95455 15.0182 2 12.2773 2C7.66819 2 3.72728 4.07273 2.23637 7.05455L6.13637 9.92727C6.98182 7.33636 9.42728 5.45455 12.2773 5.45455Z" fill="#EA4335"></path></g><defs><clipPath id="clip0_1001_2"><rect fill="white" height="20" transform="translate(1 2)" width="21.05"></rect></clipPath></defs></svg>
+                        Google
+                    </button>
+<button class="flex h-12 w-full items-center justify-center gap-3 rounded-lg border border-border-dark bg-card-dark px-4 py-2 text-base font-medium text-foreground-dark transition-all duration-300 hover:bg-slate-800/50 hover:border-secondary active:scale-95">
+<svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3Z" fill="#0A66C2"></path><path d="M8 11H11V18H8V11Z" fill="white"></path><path d="M9.5 8C8.67157 8 8 8.67157 8 9.5C8 10.3284 8.67157 11 9.5 11C10.3284 11 11 10.3284 11 9.5C11 8.67157 10.3284 8 9.5 8Z" fill="white"></path><path d="M12 11H14.5C14.5 11 15.5 11.5 15.5 13C15.5 14.5 14.5 15 14.5 15H13V18H12V11ZM13 12V14H14C14.5 14 15 14 15 13.5C15 13 14.5 13 14 13C13.75 13 13.5 12.75 13.5 12.5C13.5 12.25 13.25 12 13 12Z" fill="white"></path></svg>
+                        LinkedIn
+                    </button>
+</div>
+<div class="text-center">
+<p class="text-sm text-muted-dark">Don't have an account? <a class="font-semibold text-primary hover:text-primary-hover hover:underline" href="#">Sign Up</a></p>
+</div>
+</div>
+</div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggles = document.querySelectorAll('input[name="auth-toggle"]');
+        const loginContent = document.getElementById('login-content');
+        const signupContent = document.getElementById('signup-content');
+        toggles.forEach(toggle => {
+            toggle.addEventListener('change', function() {
+                if (this.value === 'Login') {
+                    loginContent.classList.remove('auth-hidden');
+                    signupContent.classList.add('auth-hidden');
+                } else {
+                    loginContent.classList.add('auth-hidden');
+                    signupContent.classList.remove('auth-hidden');
+                }
+            });
+        });
+    });
+</script>
+</body></html>

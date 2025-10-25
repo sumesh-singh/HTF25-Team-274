@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html class="light dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SkillSync - Notifications</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1193d4",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101c22",
+                        "accent-red": "#EF4444"
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+        .material-symbols-outlined.fill {
+           font-variation-settings: 'FILL' 1;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+<div class="relative flex h-auto min-h-screen w-full flex-col">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-20 flex items-center justify-between whitespace-nowrap border-b border-gray-200 dark:border-gray-700 bg-background-light/80 dark:bg-background-dark/80 px-6 md:px-10 py-3 backdrop-blur-sm">
+<div class="flex items-center gap-4 text-gray-900 dark:text-white">
+<span class="material-symbols-outlined text-primary text-3xl">hub</span>
+<h2 class="text-lg font-bold tracking-[-0.015em]">SkillSync</h2>
+</div>
+<nav class="hidden md:flex flex-1 justify-center items-center gap-9">
+<a class="text-sm font-medium leading-normal text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary" href="#">Dashboard</a>
+<a class="text-sm font-medium leading-normal text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary" href="#">Find Skills</a>
+<a class="text-sm font-medium leading-normal text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary" href="#">My Sessions</a>
+<a class="text-sm font-medium leading-normal text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary" href="#">Messages</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="relative flex cursor-pointer items-center justify-center rounded-full h-10 w-10 bg-gray-200/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700">
+<span class="material-symbols-outlined text-xl">notifications</span>
+<div class="absolute top-1.5 right-1.5 flex h-2.5 w-2.5 items-center justify-center rounded-full bg-accent-red ring-2 ring-background-light dark:ring-background-dark"></div>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User avatar image" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDuI2C95mz-TmClnnF7jb3d9LS-kwLGxCBr8b79rERoequK2vlwlh7jhTHRkPTgQCGDe9iDuiqv9BVUbZW_uovUdQsQ0eTMY2AiPCvUWfeEQ0vyxpIDmRGI44MxeItSPpMaVRLihXdJG5yAaNN37XEdzmGuF1HCiQjJASRP51K7fiydEPbTRr9-63gUXdMeYCsXyX0IK2whI4SOkQT4snkxOT1nxmlKYyZJ5OrjKws5y3lPaTbgLqPo90mSvpHm5DipRybA0_dlcaWF");'></div>
+</div>
+</header>
+<!-- Main Content Area -->
+<div class="flex flex-1">
+<!-- Side Navigation Bar -->
+<aside class="hidden lg:flex w-64 flex-col justify-between border-r border-gray-200 dark:border-gray-700 bg-background-light dark:bg-background-dark p-4">
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-3 p-2">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCi8lIKegkqSIBPj5ab-q94WZmxCTg_nSkpD1O9oeb8CR8-DxBD7sC1Uffsy-0iD-w2uv0jGPP0KikV8xZ5COTiI5g2ruqEHukXgqxGUcDXJ7wUqG2Vhzw8YrSwu5RwPMo6_g3jll2G5F2wM_D72S4U0QFZPfLDBpUCUh_EjsB18wE3fFLo2HAf4nLKYPU7QN96eRCMgJ6_Ywz2pWINlP2caJJqNlvQPZtPiJGd15XrcQlCCfxg_aWFYNkBZ3-wDSBlku2RmRM0Q-ws");'></div>
+<div class="flex flex-col">
+<h1 class="text-base font-medium leading-normal text-gray-900 dark:text-white">John Doe</h1>
+<p class="text-sm font-normal leading-normal text-gray-500 dark:text-gray-400">Product Manager</p>
+</div>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800" href="#">
+<span class="material-symbols-outlined text-xl">dashboard</span>
+<p class="text-sm font-medium leading-normal">Dashboard</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800" href="#">
+<span class="material-symbols-outlined text-xl">search</span>
+<p class="text-sm font-medium leading-normal">Find Skills</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800" href="#">
+<span class="material-symbols-outlined text-xl">event</span>
+<p class="text-sm font-medium leading-normal">My Sessions</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800" href="#">
+<span class="material-symbols-outlined text-xl">chat_bubble</span>
+<p class="text-sm font-medium leading-normal">Messages</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/20 dark:bg-primary/20 text-primary dark:text-primary" href="#">
+<span class="material-symbols-outlined text-xl fill">notifications_active</span>
+<p class="text-sm font-medium leading-normal">Notifications</p>
+</a>
+</nav>
+</div>
+<div class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800" href="#">
+<span class="material-symbols-outlined text-xl">settings</span>
+<p class="text-sm font-medium leading-normal">Settings</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800" href="#">
+<span class="material-symbols-outlined text-xl">logout</span>
+<p class="text-sm font-medium leading-normal">Logout</p>
+</a>
+</div>
+</aside>
+<!-- Notification Center Page Content -->
+<main class="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto">
+<div class="max-w-4xl mx-auto">
+<!-- Page Heading -->
+<div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+<div class="flex min-w-72 flex-col gap-1">
+<h1 class="text-gray-900 dark:text-white text-3xl font-black leading-tight tracking-[-0.033em]">Notifications</h1>
+<p class="text-gray-500 dark:text-gray-400 text-base font-normal leading-normal">Manage your notifications and preferences.</p>
+</div>
+<button class="flex items-center justify-center gap-2 rounded-lg h-10 bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-sm font-bold leading-normal px-4 hover:bg-gray-300 dark:hover:bg-gray-700">
+<span class="material-symbols-outlined text-lg">settings</span>
+<span>Notification Settings</span>
+</button>
+</div>
+<!-- Filters: Search and Chips -->
+<div class="flex flex-col sm:flex-row gap-4 mb-6">
+<div class="flex-1">
+<label class="flex flex-col min-w-40 h-12 w-full">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-gray-500 dark:text-gray-400 flex border-none bg-white dark:bg-background-dark items-center justify-center pl-4 rounded-l-lg border-r-0 border border-gray-300 dark:border-gray-700">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-r-lg text-gray-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border bg-white dark:bg-background-dark border-gray-300 dark:border-gray-700 focus:border-primary h-full placeholder:text-gray-500 dark:placeholder:text-gray-400 px-4 pl-2 text-base font-normal leading-normal" placeholder="Search notifications..." value=""/>
+</div>
+</label>
+</div>
+</div>
+<div class="flex gap-2 p-1 overflow-x-auto mb-6 -mx-1">
+<div class="flex h-9 shrink-0 cursor-pointer items-center justify-center gap-x-2 rounded-lg bg-primary text-white pl-4 pr-4">
+<p class="text-sm font-medium leading-normal">All</p>
+</div>
+<div class="flex h-9 shrink-0 cursor-pointer items-center justify-center gap-x-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 pl-4 pr-4">
+<p class="text-sm font-medium leading-normal">Sessions</p>
+</div>
+<div class="flex h-9 shrink-0 cursor-pointer items-center justify-center gap-x-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 pl-4 pr-4">
+<p class="text-sm font-medium leading-normal">Matching</p>
+</div>
+<div class="flex h-9 shrink-0 cursor-pointer items-center justify-center gap-x-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 pl-4 pr-4">
+<p class="text-sm font-medium leading-normal">Messages</p>
+</div>
+<div class="flex h-9 shrink-0 cursor-pointer items-center justify-center gap-x-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 pl-4 pr-4">
+<p class="text-sm font-medium leading-normal">System</p>
+</div>
+</div>
+<!-- Notification List -->
+<div class="flex flex-col gap-2">
+<!-- Unread Notification Item -->
+<div class="flex items-start gap-4 p-4 rounded-lg bg-primary/10 dark:bg-primary/20 border-l-4 border-primary">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary/20 text-primary dark:bg-primary/30 dark:text-primary-300">
+<span class="material-symbols-outlined text-xl">group</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-semibold text-gray-900 dark:text-white">New potential skill match</p>
+<p class="text-sm text-gray-600 dark:text-gray-300">David is looking for Python help. You might be a great fit!</p>
+<p class="text-xs text-gray-500 dark:text-gray-400 mt-1">2 hours ago</p>
+</div>
+</div>
+<!-- Read Notification Item -->
+<div class="flex items-start gap-4 p-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800/50">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-200 text-gray-600 dark:bg-gray-800 dark:text-gray-400">
+<span class="material-symbols-outlined text-xl">chat</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-semibold text-gray-900 dark:text-white">3 unread messages</p>
+<p class="text-sm text-gray-600 dark:text-gray-300">You have new messages from the 'UX Study Group'.</p>
+<p class="text-xs text-gray-500 dark:text-gray-400 mt-1">1 day ago</p>
+</div>
+</div>
+<!-- Unread Notification Item -->
+<div class="flex items-start gap-4 p-4 rounded-lg bg-primary/10 dark:bg-primary/20 border-l-4 border-primary">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary/20 text-primary dark:bg-primary/30 dark:text-primary-300">
+<span class="material-symbols-outlined text-xl">event_upcoming</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-semibold text-gray-900 dark:text-white">Session Reminder</p>
+<p class="text-sm text-gray-600 dark:text-gray-300">Your 'Advanced UI Design' session with Clara is starting in 15 minutes.</p>
+<p class="text-xs text-gray-500 dark:text-gray-400 mt-1">3 days ago</p>
+</div>
+</div>
+<!-- Read Notification Item -->
+<div class="flex items-start gap-4 p-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800/50">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-200 text-gray-600 dark:bg-gray-800 dark:text-gray-400">
+<span class="material-symbols-outlined text-xl">check_circle</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-semibold text-gray-900 dark:text-white">Session Request Accepted</p>
+<p class="text-sm text-gray-600 dark:text-gray-300">Alice has accepted your session request for 'Intro to Figma'.</p>
+<p class="text-xs text-gray-500 dark:text-gray-400 mt-1">5 days ago</p>
+</div>
+</div>
+<!-- Read Notification Item -->
+<div class="flex items-start gap-4 p-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800/50">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-200 text-gray-600 dark:bg-gray-800 dark:text-gray-400">
+<span class="material-symbols-outlined text-xl">celebration</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-semibold text-gray-900 dark:text-white">Welcome to SkillSync!</p>
+<p class="text-sm text-gray-600 dark:text-gray-300">Complete your profile to get started and find your first skill match.</p>
+<p class="text-xs text-gray-500 dark:text-gray-400 mt-1">1 week ago</p>
+</div>
+</div>
+<!-- Empty State Example -->
+<div class="flex flex-col items-center justify-center text-center p-12 mt-8 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-700">
+<span class="material-symbols-outlined text-5xl text-gray-400 dark:text-gray-500">notifications_off</span>
+<h3 class="mt-4 text-lg font-semibold text-gray-800 dark:text-gray-200">No more notifications</h3>
+<p class="mt-1 text-sm text-gray-500 dark:text-gray-400">You're all caught up! New notifications will appear here.</p>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

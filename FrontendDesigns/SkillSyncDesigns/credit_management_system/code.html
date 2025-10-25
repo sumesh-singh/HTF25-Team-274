@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+
+<html class="light dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SkillSync - Credit Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#4A90E2",
+              "secondary": "#50E3C2",
+              "accent": "#F5A623",
+              "background-light": "#F4F7F9",
+              "background-dark": "#101c22",
+              "text-light": "#4A4A4A",
+              "text-dark": "#E0E0E0",
+              "text-secondary-light": "#9B9B9B",
+              "text-secondary-dark": "#A0AEC0",
+              "border-light": "#E2E8F0",
+              "border-dark": "#2D3748",
+              "card-light": "#FFFFFF",
+              "card-dark": "#1A202C",
+            },
+            fontFamily: {
+              "display": ["Manrope", "sans-serif"]
+            },
+            borderRadius: {
+              "DEFAULT": "0.5rem",
+              "lg": "0.75rem",
+              "xl": "1rem",
+              "full": "9999px"
+            },
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        font-size: 24px;
+      }
+      .material-symbols-outlined.fill {
+        font-variation-settings: 'FILL' 1;
+      }
+    </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark">
+<div class="flex h-screen w-full">
+<!-- SideNavBar -->
+<aside class="flex h-full w-64 flex-col justify-between border-r border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark p-4">
+<div class="flex flex-col gap-8">
+<div class="flex items-center gap-3 px-3">
+<div class="text-primary size-8">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-xl font-bold">SkillSync</h2>
+</div>
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User avatar image" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAJ51b_8RwpV-Po1YLWM8miraAdje7ZszoPSrJAPDz2Dp7wuIoUU_bmfjcfxTdfMqKY_ZWiqLasCxvSox9UtPMYV-PGKlYFzNY3VX4j8NCUV8jJ0lPuMLbX7HD4nsjEeCFlQpuI9gV4iQRq4Wv0P1TuQduh7se_pliEMJoW7lQRO0fALk7r6E3j-JK4y0GTfETvrmCeuHZ3cYX3H54wuQuzHpL2tp2s0SQnVWDllLb73jbprqwibsxNwowXaRKJUnODxs626UfyKcnf");'></div>
+<div class="flex flex-col">
+<h1 class="font-semibold leading-normal">Jane Doe</h1>
+<p class="text-sm text-text-secondary-light dark:text-text-secondary-dark">jane.doe@email.com</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 hover:bg-primary/10" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<p class="text-sm font-medium">Dashboard</p>
+</a>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 hover:bg-primary/10" href="#">
+<span class="material-symbols-outlined">school</span>
+<p class="text-sm font-medium">My Skills</p>
+</a>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 hover:bg-primary/10" href="#">
+<span class="material-symbols-outlined">group</span>
+<p class="text-sm font-medium">Find a Mentor</p>
+</a>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 hover:bg-primary/10" href="#">
+<span class="material-symbols-outlined">chat</span>
+<p class="text-sm font-medium">Messages</p>
+</a>
+<a class="flex items-center gap-3 rounded-lg bg-primary/20 px-3 py-2 text-primary dark:text-white dark:bg-primary" href="#">
+<span class="material-symbols-outlined fill">account_balance_wallet</span>
+<p class="text-sm font-medium">Credits</p>
+</a>
+</nav>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 hover:bg-primary/10" href="#">
+<span class="material-symbols-outlined">settings</span>
+<p class="text-sm font-medium">Settings</p>
+</a>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 hover:bg-primary/10" href="#">
+<span class="material-symbols-outlined">logout</span>
+<p class="text-sm font-medium">Logout</p>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto p-8">
+<div class="mx-auto max-w-7xl space-y-8">
+<!-- PageHeading -->
+<header class="flex flex-wrap items-center justify-between gap-4">
+<div class="flex flex-col gap-2">
+<h1 class="text-4xl font-black tracking-tighter">Credit Management</h1>
+<p class="text-text-secondary-light dark:text-text-secondary-dark">
+                            Manage your SkillSync currency. Earn, spend, or purchase credits to enhance your learning journey.
+                        </p>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative">
+<span class="material-symbols-outlined text-3xl text-text-secondary-light dark:text-text-secondary-dark">notifications</span>
+<span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-background-light dark:ring-background-dark"></span>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12" data-alt="User avatar image" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA9n4vDNzLMd0Zbp8W1DIOqpUsMcpFICO_HQod9uZnQWAMFwx6dNaRHO_mbc19ZNRRcYhnjdpNnzuA7UbNY839KITLkJMqalONn56UgDiULCFQxPHe0rNSZpBgrvL-RO-QGHbsfH13_TpGIcrRk_idC6LWo2VxXdZvjJv16360LmAj6j_3jyOqjnQfxHJ51bMwNpYDnrvDBGfjiOMHYkrAtUS_QAUXxvSlLQJgVkBnogWNA3z8vHzT8beEbhfvTSGlNNbO9Ze34fKeO");'></div>
+</div>
+</header>
+<!-- Stats and CTA -->
+<section class="grid grid-cols-1 gap-6 md:grid-cols-3">
+<div class="flex flex-col gap-2 rounded-xl bg-card-light dark:bg-card-dark p-6 shadow-sm md:col-span-2">
+<p class="text-base font-medium text-text-secondary-light dark:text-text-secondary-dark">Current Credit Balance</p>
+<p class="text-5xl font-bold tracking-tight">1,250</p>
+</div>
+<div class="flex items-center justify-center rounded-xl bg-card-light dark:bg-card-dark p-6 shadow-sm">
+<button class="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary h-14 px-5 text-base font-bold text-white">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+<span class="truncate">Buy Credits</span>
+</button>
+</div>
+</section>
+<!-- Tabbed Interface -->
+<section>
+<div class="border-b border-border-light dark:border-border-dark">
+<nav aria-label="Tabs" class="-mb-px flex space-x-8">
+<a class="whitespace-nowrap border-b-2 border-primary py-4 px-1 text-sm font-semibold text-primary" href="#">Purchase Credits</a>
+<a class="whitespace-nowrap border-b-2 border-transparent py-4 px-1 text-sm font-medium text-text-secondary-light hover:border-gray-300 hover:text-text-light dark:hover:border-gray-600 dark:hover:text-text-dark" href="#">Earn Credits</a>
+<a class="whitespace-nowrap border-b-2 border-transparent py-4 px-1 text-sm font-medium text-text-secondary-light hover:border-gray-300 hover:text-text-light dark:hover:border-gray-600 dark:hover:text-text-dark" href="#">Spend Credits</a>
+</nav>
+</div>
+<!-- Purchase Credits Section -->
+<div class="py-8">
+<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+<div class="relative flex cursor-pointer flex-col gap-4 rounded-xl border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark p-6 shadow-sm transition-all hover:border-primary hover:shadow-lg">
+<h3 class="text-lg font-bold">Starter Pack</h3>
+<p class="text-4xl font-black tracking-tight">100 <span class="text-base font-semibold text-text-secondary-light dark:text-text-secondary-dark">Credits</span></p>
+<p class="text-2xl font-bold text-primary">$10.00</p>
+<p class="text-sm text-text-secondary-light dark:text-text-secondary-dark">Perfect for getting started and booking a session.</p>
+</div>
+<div class="relative flex cursor-pointer flex-col gap-4 rounded-xl border-2 border-primary bg-card-light dark:bg-card-dark p-6 shadow-lg transition-all">
+<span class="absolute top-0 -translate-y-1/2 rounded-full bg-accent px-3 py-1 text-xs font-bold uppercase text-white">Best Value</span>
+<h3 class="text-lg font-bold">Learner Bundle</h3>
+<p class="text-4xl font-black tracking-tight">550 <span class="text-base font-semibold text-text-secondary-light dark:text-text-secondary-dark">Credits</span></p>
+<p class="text-2xl font-bold text-primary">$50.00 <span class="ml-2 text-sm font-medium text-secondary">(10% Bonus)</span></p>
+<p class="text-sm text-text-secondary-light dark:text-text-secondary-dark">Ideal for active learners to book multiple sessions.</p>
+</div>
+<div class="relative flex cursor-pointer flex-col gap-4 rounded-xl border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark p-6 shadow-sm transition-all hover:border-primary hover:shadow-lg">
+<h3 class="text-lg font-bold">Mentor Pro</h3>
+<p class="text-4xl font-black tracking-tight">1200 <span class="text-base font-semibold text-text-secondary-light dark:text-text-secondary-dark">Credits</span></p>
+<p class="text-2xl font-bold text-primary">$100.00 <span class="ml-2 text-sm font-medium text-secondary">(20% Bonus)</span></p>
+<p class="text-sm text-text-secondary-light dark:text-text-secondary-dark">For dedicated users and mentors to maximize their impact.</p>
+</div>
+</div>
+<div class="mt-8 flex flex-col items-center justify-center gap-4 rounded-xl border border-dashed border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark p-8">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-green-500">verified_user</span>
+<p class="text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark">Secure Payments Powered by Stripe</p>
+</div>
+<p class="text-center text-sm text-text-secondary-light dark:text-text-secondary-dark">Select a package to proceed to secure checkout. Credits are delivered instantly upon successful payment.</p>
+<div class="flex items-center gap-4">
+<img alt="Visa Logo" class="h-8" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCx0HfdfTAxnPleXbGpSb46qFHKwMLjs_uCFbvIqhPlB6XTPeYD2QyJ0GXFBhpZkIrZDS1MrSVsI9-R9qNDkC1SynG7wD-CiRoN8s68hR3rnzSGML3Ek04uYjYY4ZIrI5IAe2lTY7tSOGTaHofRA4RHDQpbE4xa2NnIuPth6jU79q3imezPYf9B6ZSBrrPpkV4WOGhglYRu6XfInf7W1Y_ABrJm3bjQUQ6BU9XXpYAdl-OyQcKMk5zi8qPFYjtCWaxpU1tfNuFiZTOK"/>
+<img alt="Mastercard Logo" class="h-8" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXTEMhe-GMLt49_l94qsfayrF2168ZLgRVhJ756NYHeXQ2XUCDT_sOMtOd-kKLCDRq9_iFY2ApDU5nHjz4InG5wZOvCFLAw2u5S13IiX6bRNNynwwqoV1t9sKwOKot_kt1Zi10fR1PMSGqq3fMWRrxRQzYHIXk5qU_8RSD3ikfG8S8WHVZSg94UWPirElI1a9fdIUpRWxkxV-rk6wBWY04zhmgQVzOkhWr58z31W15Cq6NcejEZb-TjWYSJVPd3Zk9_hqKzfRa7e2a"/>
+<img alt="American Express Logo" class="h-8" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWqb78pl-_3kpdQswG8TP4XpW3T-ptkeZtLWZhDq66orGuZpePS1v3PQVwBz_lAwUXGALOgEFAUImsNlya7GlykbF2Aom7JiZW32oCXXz91-UDvXLGmn1g7QzCHXN-_EV0P9jMFfy5xTZDuZBaf3EpqQ1todNj5DqNd_fALI5evWER-svncG_zzXtbvw4kpmwdVXuhuvekAMjE_PvhOSIlvDywyH-Vdcwx01CxAM3ssEkLJsYBpC-zyJnN7DOA-sgjGQnS1SL0EF3Y"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Transaction History -->
+<section class="space-y-4">
+<h2 class="text-2xl font-bold">Transaction History</h2>
+<div class="flex flex-wrap items-center justify-between gap-4">
+<div class="flex gap-2">
+<select class="rounded-lg border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark text-sm focus:border-primary focus:ring-primary">
+<option>All Types</option>
+<option>Earn</option>
+<option>Spend</option>
+<option>Purchase</option>
+</select>
+<input class="rounded-lg border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark text-sm focus:border-primary focus:ring-primary" type="date"/>
+</div>
+<button class="flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark px-4 py-2 text-sm font-semibold hover:bg-background-light dark:hover:bg-background-dark">
+<span class="material-symbols-outlined text-base">download</span>
+                            Export as CSV
+                        </button>
+</div>
+<div class="overflow-hidden rounded-xl border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark shadow-sm">
+<table class="min-w-full divide-y divide-border-light dark:divide-border-dark">
+<thead class="bg-background-light dark:bg-background-dark">
+<tr>
+<th class="py-3.5 px-4 text-left text-sm font-semibold" scope="col">Date</th>
+<th class="py-3.5 px-4 text-left text-sm font-semibold" scope="col">Description</th>
+<th class="py-3.5 px-4 text-left text-sm font-semibold" scope="col">Type</th>
+<th class="py-3.5 px-4 text-right text-sm font-semibold" scope="col">Amount</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-light dark:divide-border-dark">
+<tr>
+<td class="whitespace-nowrap py-4 px-4 text-sm">Oct 26, 2023</td>
+<td class="whitespace-nowrap py-4 px-4 text-sm">Profile Boost Purchase</td>
+<td class="whitespace-nowrap py-4 px-4 text-sm">
+<span class="inline-flex items-center rounded-full bg-red-100 dark:bg-red-900/50 px-2.5 py-0.5 text-xs font-medium text-red-800 dark:text-red-300">Spend</span>
+</td>
+<td class="whitespace-nowrap py-4 px-4 text-right text-sm font-semibold text-red-600 dark:text-red-400">-50</td>
+</tr>
+<tr>
+<td class="whitespace-nowrap py-4 px-4 text-sm">Oct 25, 2023</td>
+<td class="whitespace-nowrap py-4 px-4 text-sm">Completed "Advanced React" Session</td>
+<td class="whitespace-nowrap py-4 px-4 text-sm">
+<span class="inline-flex items-center rounded-full bg-secondary/20 dark:bg-secondary/30 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:text-secondary">Earn</span>
+</td>
+<td class="whitespace-nowrap py-4 px-4 text-right text-sm font-semibold text-green-600 dark:text-secondary">+100</td>
+</tr>
+<tr>
+<td class="whitespace-nowrap py-4 px-4 text-sm">Oct 24, 2023</td>
+<td class="whitespace-nowrap py-4 px-4 text-sm">Learner Bundle Purchase</td>
+<td class="whitespace-nowrap py-4 px-4 text-sm">
+<span class="inline-flex items-center rounded-full bg-primary/20 dark:bg-primary/30 px-2.5 py-0.5 text-xs font-medium text-primary dark:text-blue-300">Purchase</span>
+</td>
+<td class="whitespace-nowrap py-4 px-4 text-right text-sm font-semibold text-green-600 dark:text-secondary">+550</td>
+</tr>
+<tr>
+<td class="whitespace-nowrap py-4 px-4 text-sm">Oct 22, 2023</td>
+<td class="whitespace-nowrap py-4 px-4 text-sm">Booked session with John Smith</td>
+<td class="whitespace-nowrap py-4 px-4 text-sm">
+<span class="inline-flex items-center rounded-full bg-red-100 dark:bg-red-900/50 px-2.5 py-0.5 text-xs font-medium text-red-800 dark:text-red-300">Spend</span>
+</td>
+<td class="whitespace-nowrap py-4 px-4 text-right text-sm font-semibold text-red-600 dark:text-red-400">-150</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Policy Information -->
+<footer class="mt-8 text-center text-sm text-text-secondary-light dark:text-text-secondary-dark">
+<p>
+                        Please review our <a class="font-medium text-primary hover:underline" href="#">Refund Policy</a> and <a class="font-medium text-primary hover:underline" href="#">Credit Expiration Rules</a> for more details.
+                    </p>
+<p class="mt-2">Credits are a virtual currency for use only on the SkillSync platform.</p>
+</footer>
+</div>
+</main>
+</div>
+</body></html>
