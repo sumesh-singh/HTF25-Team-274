@@ -98,3 +98,6 @@ prisma/migrations/
 # OS
 .DS_Store
 Thumbs.db
+
+mcp.json
+testsprite_tests/

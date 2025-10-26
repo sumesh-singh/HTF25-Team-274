@@ -42,3 +42,11 @@ coverage/
 .temp
 .tmp
 .cache
+
+# TestSprite testing files
+testsprite_tests/
+
+# MCP configuration
+mcp.json
+.kiro/settings/mcp.json
+.kiro/

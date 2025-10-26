@@ -2,17 +2,25 @@
   "mcpServers": {
     "fetch": {
       "command": "uvx",
-      "args": ["mcp-server-fetch"],
+      "args": [
+        "mcp-server-fetch"
+      ],
       "env": {},
       "disabled": true,
       "autoApprove": []
     },
     "TestSprite": {
       "command": "npx",
-      "args": ["@testsprite/testsprite-mcp@latest"],
+      "args": [
+        "@testsprite/testsprite-mcp@latest"
+      ],
       "env": {
         "API_KEY": "sk-user-kJ7jSFr_cnVkiIQazhSIAGg4aZoLTe0Ni7lBexS1a8RhXJ-Q-ItZeB1MN2yB197EcmGy5kXyiBBGMk8T8hF51r42sHffqPea6FpkYjO2i-kbcMapwcfq3H0USVZM5-kPhhU"
-      }
+      },
+      "disabled": false,
+      "autoApprove": [
+        "testsprite_generate_frontend_test_plan"
+      ]
     }
   }
 }
