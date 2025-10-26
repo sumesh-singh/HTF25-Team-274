@@ -375,6 +375,20 @@ async function main() {
 
   const demoUsers = [
     {
+      email: "admin@skillsync.com",
+      passwordHash: hashedPassword,
+      firstName: "Admin",
+      lastName: "User",
+      bio: "Platform administrator",
+      location: "San Francisco, CA",
+      timezone: "America/Los_Angeles",
+      isVerified: true,
+      isAdmin: true,
+      rating: 5.0,
+      totalSessions: 0,
+      creditBalance: 1000,
+    },
+    {
       email: "alex.teacher@skillsync.com",
       passwordHash: hashedPassword,
       firstName: "Alex",

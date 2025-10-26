@@ -1,3 +1,5 @@
+import { Request } from "express";
+
 // Common API response types
 export interface ApiResponse<T = any> {
   success: boolean;
@@ -31,11 +33,12 @@ export interface User {
   email: string;
   firstName: string;
   lastName: string;
-  avatar?: string;
-  bio?: string;
-  location?: string;
+  avatar?: string | null;
+  bio?: string | null;
+  location?: string | null;
   timezone: string;
   isVerified: boolean;
+  isAdmin: boolean;
   rating: number | any; // Allow Prisma Decimal type
   totalSessions: number;
   creditBalance: number;
@@ -246,7 +249,166 @@ export interface MatchSuggestion {
   skills: string[];
 }
 
+// Match-related types
+export interface MatchScore {
+  userId: string;
+  score: number;
+  breakdown: {
+    skillComplementarity: number;
+    availabilityOverlap: number;
+    learningStyleCompatibility: number;
+    ratingHistory: number;
+    responseRate: number;
+  };
+  explanation: string;
+  commonSkills: string[];
+}
+
+export interface MatchFilters {
+  skillCategories?: SkillCategory[];
+  proficiencyLevels?: number[];
+  location?: string;
+  minRating?: number;
+  maxDistance?: number;
+  availabilityDays?: number[];
+  availabilityTimes?: string[];
+}
+
+export enum MatchInteractionType {
+  FAVORITE = "favorite",
+  PASS = "pass",
+  BLOCK = "block",
+  VIEW = "view",
+}
+
 // Express Request extension
+export interface AuthenticatedRequest extends Request {
+  user: User;
+}
+
+// Admin types
+export interface AdminAnalytics {
+  userMetrics: {
+    totalUsers: number;
+    monthlyActiveUsers: number;
+    newRegistrations: number;
+    userRetentionRate: number;
+    averageSessionsPerUser: number;
+  };
+  sessionMetrics: {
+    totalSessions: number;
+    completedSessions: number;
+    cancelledSessions: number;
+    sessionCompletionRate: number;
+    averageSessionDuration: number;
+    sessionsThisMonth: number;
+  };
+  creditMetrics: {
+    totalCreditsInCirculation: number;
+    totalCreditsEarned: number;
+    totalCreditsSpent: number;
+    totalRevenue: number;
+    averageCreditsPerUser: number;
+    creditTransactionsThisMonth: number;
+  };
+  skillMetrics: {
+    totalSkills: number;
+    mostPopularSkills: Array<{ skill: string; count: number }>;
+    skillCategoryDistribution: Array<{ category: string; count: number }>;
+    verifiedSkillsCount: number;
+  };
+  systemHealth: {
+    uptime: number;
+    averageResponseTime: number;
+    errorRate: number;
+    activeConnections: number;
+    databaseHealth: boolean;
+    redisHealth: boolean;
+  };
+}
+
+export interface AdminUserDetails extends User {
+  skills: UserSkill[];
+  sessionsAsTeacher: number;
+  sessionsAsLearner: number;
+  totalEarnings: number;
+  totalSpending: number;
+  lastLogin: Date;
+  accountStatus: "active" | "suspended" | "banned";
+  reportCount: number;
+}
+
+export interface AdminSessionDetails extends Session {
+  teacher: User;
+  learner: User;
+  skill: Skill;
+  ratings: SessionRating[];
+  creditTransactions: CreditTransaction[];
+}
+
+export interface SessionRating {
+  id: string;
+  sessionId: string;
+  raterId: string;
+  knowledgeRating: number;
+  communicationRating: number;
+  professionalismRating: number;
+  feedback?: string;
+  createdAt: Date;
+}
+
+export interface AdminReport {
+  id: string;
+  reporterId: string;
+  reportedUserId: string;
+  type: ReportType;
+  reason: string;
+  description: string;
+  evidence?: string[];
+  status: ReportStatus;
+  adminNotes?: string;
+  createdAt: Date;
+  updatedAt: Date;
+  reporter: User;
+  reportedUser: User;
+}
+
+export enum ReportType {
+  INAPPROPRIATE_BEHAVIOR = "inappropriate_behavior",
+  SPAM = "spam",
+  HARASSMENT = "harassment",
+  FAKE_PROFILE = "fake_profile",
+  PAYMENT_ISSUE = "payment_issue",
+  TECHNICAL_ISSUE = "technical_issue",
+  OTHER = "other",
+}
+
+export enum ReportStatus {
+  PENDING = "pending",
+  UNDER_REVIEW = "under_review",
+  RESOLVED = "resolved",
+  DISMISSED = "dismissed",
+}
+
+export interface ModerationAction {
+  id: string;
+  adminId: string;
+  targetUserId: string;
+  type: ModerationActionType;
+  reason: string;
+  duration?: number; // in days for suspensions
+  createdAt: Date;
+  expiresAt?: Date;
+}
+
+export enum ModerationActionType {
+  WARNING = "warning",
+  SUSPENSION = "suspension",
+  BAN = "ban",
+  UNBAN = "unban",
+  SKILL_VERIFICATION_REVOKE = "skill_verification_revoke",
+}
+
 declare global {
   namespace Express {
     interface Request {

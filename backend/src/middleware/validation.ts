@@ -76,6 +76,11 @@ export const commonSchemas = {
     page: Joi.number().integer().min(1).default(1),
     limit: Joi.number().integer().min(1).max(100).default(20),
   },
+  params: {
+    id: Joi.object({
+      id: Joi.string().uuid().required(),
+    }),
+  },
 };
 
 // Auth validation schemas
@@ -120,6 +125,31 @@ export const userSchemas = {
     timezone: Joi.string().max(50),
   }),
 
+  updatePreferences: Joi.object({
+    emailNotifications: Joi.boolean(),
+    pushNotifications: Joi.boolean(),
+    sessionReminders: Joi.boolean(),
+    matchSuggestions: Joi.boolean(),
+    messageNotifications: Joi.boolean(),
+    creditNotifications: Joi.boolean(),
+    systemNotifications: Joi.boolean(),
+  }),
+
+  searchUsers: Joi.object({
+    skills: Joi.alternatives().try(
+      Joi.string().uuid(),
+      Joi.array().items(Joi.string().uuid())
+    ),
+    location: Joi.string().max(100),
+    minRating: Joi.number().min(0).max(5),
+    canTeach: Joi.boolean(),
+    wantsToLearn: Joi.boolean(),
+    isVerified: Joi.boolean(),
+    page: commonSchemas.pagination.page,
+    limit: commonSchemas.pagination.limit,
+    search: Joi.string().max(100),
+  }),
+
   getUserById: Joi.object({
     id: commonSchemas.id,
   }),
@@ -139,6 +169,75 @@ export const skillSchemas = {
     canTeach: Joi.boolean(),
     wantsToLearn: Joi.boolean(),
   }),
+
+  requestSkill: Joi.object({
+    name: Joi.string().min(2).max(100).required(),
+    category: Joi.string()
+      .valid(
+        "TECHNOLOGY",
+        "DESIGN",
+        "BUSINESS",
+        "MARKETING",
+        "LANGUAGES",
+        "MUSIC",
+        "ARTS_CRAFTS",
+        "FITNESS",
+        "COOKING",
+        "PHOTOGRAPHY",
+        "WRITING",
+        "OTHER"
+      )
+      .required(),
+    description: Joi.string().max(500),
+  }),
+
+  searchSkills: Joi.object({
+    category: Joi.string().valid(
+      "TECHNOLOGY",
+      "DESIGN",
+      "BUSINESS",
+      "MARKETING",
+      "LANGUAGES",
+      "MUSIC",
+      "ARTS_CRAFTS",
+      "FITNESS",
+      "COOKING",
+      "PHOTOGRAPHY",
+      "WRITING",
+      "OTHER"
+    ),
+    search: Joi.string().max(100),
+    canTeach: Joi.boolean(),
+    wantsToLearn: Joi.boolean(),
+    isVerified: Joi.boolean(),
+    minProficiency: Joi.number().integer().min(0).max(100),
+    maxProficiency: Joi.number().integer().min(0).max(100),
+  }),
+
+  searchUsersBySkills: Joi.object({
+    skillIds: Joi.alternatives().try(
+      Joi.string().uuid(),
+      Joi.array().items(Joi.string().uuid())
+    ),
+    canTeach: Joi.boolean(),
+    wantsToLearn: Joi.boolean(),
+    minRating: Joi.number().min(0).max(5),
+    isVerified: Joi.boolean(),
+    location: Joi.string().max(100),
+    page: commonSchemas.pagination.page,
+    limit: commonSchemas.pagination.limit,
+  }),
+
+  // Skill verification schemas
+  requestVerification: Joi.object({
+    verifierId: commonSchemas.id,
+    message: Joi.string().max(500),
+  }),
+
+  respondToVerification: Joi.object({
+    status: Joi.string().valid("APPROVED", "REJECTED").required(),
+    feedback: Joi.string().max(500),
+  }),
 };
 
 // Session validation schemas
@@ -148,12 +247,16 @@ export const sessionSchemas = {
     skillId: commonSchemas.id,
     title: Joi.string().min(5).max(100).required(),
     description: Joi.string().max(500),
-    scheduledAt: Joi.date().iso().greater("now").required(),
+    scheduledAt: Joi.date().iso().greater("now"),
+    proposedTimeSlots: Joi.array()
+      .items(Joi.date().iso().greater("now"))
+      .min(1)
+      .max(5),
     duration: Joi.number().integer().valid(30, 60, 120).required(),
     type: Joi.string()
-      .valid("one_time", "recurring", "learning_circle", "micro_learning")
-      .default("one_time"),
-  }),
+      .valid("ONE_TIME", "RECURRING", "LEARNING_CIRCLE", "MICRO_LEARNING")
+      .default("ONE_TIME"),
+  }).xor("scheduledAt", "proposedTimeSlots"), // Either scheduledAt or proposedTimeSlots, not both
 
   updateSession: Joi.object({
     title: Joi.string().min(5).max(100),
@@ -161,13 +264,14 @@ export const sessionSchemas = {
     scheduledAt: Joi.date().iso().greater("now"),
     duration: Joi.number().integer().valid(30, 60, 120),
     status: Joi.string().valid(
-      "pending",
-      "confirmed",
-      "in_progress",
-      "completed",
-      "cancelled",
-      "no_show"
+      "PENDING",
+      "CONFIRMED",
+      "IN_PROGRESS",
+      "COMPLETED",
+      "CANCELLED",
+      "NO_SHOW"
     ),
+    reason: Joi.string().max(500), // For cancellation reason
   }),
 
   rateSession: Joi.object({

@@ -5,6 +5,7 @@ import prisma from "@/lib/prisma";
 import config from "@/config";
 import logger from "@/utils/logger";
 import { emailService } from "@/services/emailService";
+import { creditService } from "@/services/creditService";
 import { User, AuthResponse, LoginRequest, RegisterRequest } from "@/types";
 
 export class AuthService {
@@ -89,6 +90,17 @@ export class AuthService {
           messageNotifications: true,
           creditNotifications: true,
           systemNotifications: true,
+        },
+      });
+
+      // Award starter credits (create transaction record)
+      // Note: User already has 50 credits from database default, so we just create the transaction record
+      await prisma.creditTransaction.create({
+        data: {
+          userId: user.id,
+          type: "BONUS",
+          amount: 50,
+          description: "Welcome bonus - starter credits",
         },
       });
 

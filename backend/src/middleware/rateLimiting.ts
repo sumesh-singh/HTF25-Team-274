@@ -78,7 +78,7 @@ export const accountLockoutMiddleware = (
   req: Request,
   res: Response<ApiResponse>,
   next: Function
-) => {
+): void | Response<ApiResponse> => {
   const identifier = req.body.email || req.ip;
   const attempts = failedAttempts.get(identifier);
 

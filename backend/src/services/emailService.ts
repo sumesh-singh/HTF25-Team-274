@@ -16,7 +16,7 @@ export class EmailService {
     // Configure transporter based on environment
     if (config.nodeEnv === "production" && config.email.sendgridApiKey) {
       // Use SendGrid in production
-      this.transporter = nodemailer.createTransporter({
+      this.transporter = nodemailer.createTransport({
         service: "SendGrid",
         auth: {
           user: "apikey",
@@ -25,7 +25,7 @@ export class EmailService {
       });
     } else {
       // Use Ethereal Email for development/testing
-      this.transporter = nodemailer.createTransporter({
+      this.transporter = nodemailer.createTransport({
         host: "smtp.ethereal.email",
         port: 587,
         auth: {

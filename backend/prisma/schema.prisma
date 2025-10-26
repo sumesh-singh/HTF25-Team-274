@@ -21,6 +21,7 @@ model User {
   location      String?
   timezone      String   @default("UTC")
   isVerified    Boolean  @default(false) @map("is_verified")
+  isAdmin       Boolean  @default(false) @map("is_admin")
   rating        Decimal  @default(0.00) @db.Decimal(3, 2)
   totalSessions Int      @default(0) @map("total_sessions")
   creditBalance Int      @default(50) @map("credit_balance")
@@ -48,6 +49,10 @@ model User {
   skillVerificationRequests SkillVerification[] @relation("RequestedBy")
   matchInteractions   MatchInteraction[]
   refreshTokens       RefreshToken[]
+  reportsSubmitted    Report[]            @relation("ReportsSubmitted")
+  reportsReceived     Report[]            @relation("ReportsReceived")
+  adminActions        ModerationAction[]  @relation("AdminActions")
+  receivedActions     ModerationAction[]  @relation("ReceivedActions")
 
   @@map("users")
 }
@@ -315,6 +320,43 @@ model RefreshToken {
   @@map("refresh_tokens")
 }
 
+model Report {
+  id              String       @id @default(uuid())
+  reporterId      String       @map("reporter_id")
+  reportedUserId  String       @map("reported_user_id")
+  type            ReportType
+  reason          String
+  description     String
+  evidence        String[]     @default([])
+  status          ReportStatus @default(PENDING)
+  adminNotes      String?      @map("admin_notes")
+  createdAt       DateTime     @default(now()) @map("created_at")
+  updatedAt       DateTime     @updatedAt @map("updated_at")
+
+  // Relations
+  reporter     User @relation("ReportsSubmitted", fields: [reporterId], references: [id], onDelete: Cascade)
+  reportedUser User @relation("ReportsReceived", fields: [reportedUserId], references: [id], onDelete: Cascade)
+
+  @@map("reports")
+}
+
+model ModerationAction {
+  id           String               @id @default(uuid())
+  adminId      String               @map("admin_id")
+  targetUserId String               @map("target_user_id")
+  type         ModerationActionType
+  reason       String
+  duration     Int?                 // in days for suspensions
+  createdAt    DateTime             @default(now()) @map("created_at")
+  expiresAt    DateTime?            @map("expires_at")
+
+  // Relations
+  admin      User @relation("AdminActions", fields: [adminId], references: [id], onDelete: Cascade)
+  targetUser User @relation("ReceivedActions", fields: [targetUserId], references: [id], onDelete: Cascade)
+
+  @@map("moderation_actions")
+}
+
 // Enums
 enum SkillCategory {
   TECHNOLOGY
@@ -385,4 +427,29 @@ enum MatchInteractionType {
   PASS
   BLOCK
   VIEW
+}
+
+enum ReportType {
+  INAPPROPRIATE_BEHAVIOR
+  SPAM
+  HARASSMENT
+  FAKE_PROFILE
+  PAYMENT_ISSUE
+  TECHNICAL_ISSUE
+  OTHER
+}
+
+enum ReportStatus {
+  PENDING
+  UNDER_REVIEW
+  RESOLVED
+  DISMISSED
+}
+
+enum ModerationActionType {
+  WARNING
+  SUSPENSION
+  BAN
+  UNBAN
+  SKILL_VERIFICATION_REVOKE
 }

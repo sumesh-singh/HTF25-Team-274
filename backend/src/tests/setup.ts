@@ -1,10 +1,9 @@
-import { PrismaClient } from '@prisma/client';
-
 // Mock Prisma Client for tests
 const mockPrisma = {
   user: {
     findUnique: jest.fn(),
     findMany: jest.fn(),
+    findFirst: jest.fn(),
     create: jest.fn(),
     update: jest.fn(),
     delete: jest.fn(),
@@ -39,6 +38,17 @@ const mockPrisma = {
     create: jest.fn(),
     update: jest.fn(),
   },
+  userPreferences: {
+    create: jest.fn(),
+    update: jest.fn(),
+    findUnique: jest.fn(),
+  },
+  refreshToken: {
+    create: jest.fn(),
+    findUnique: jest.fn(),
+    update: jest.fn(),
+    deleteMany: jest.fn(),
+  },
   $connect: jest.fn(),
   $disconnect: jest.fn(),
   $queryRaw: jest.fn(),
@@ -46,7 +56,7 @@ const mockPrisma = {
 };
 
 // Mock the Prisma module
-jest.mock('@/lib/prisma', () => ({
+jest.mock("@/lib/prisma", () => ({
   __esModule: true,
   default: mockPrisma,
   connectDatabase: jest.fn(),

@@ -1,112 +1,157 @@
-import { Router } from 'express';
-import { validateRequest, skillSchemas, commonSchemas } from '@/middleware/validation';
-import { authenticateToken, optionalAuth } from '@/middleware/auth';
+import { Router } from "express";
+import Joi from "joi";
+import {
+  validateRequest,
+  skillSchemas,
+  commonSchemas,
+} from "@/middleware/validation";
+import { authenticateToken, optionalAuth } from "@/middleware/auth";
+import { skillsController } from "@/controllers/skillsController";
+import { skillVerificationController } from "@/controllers/skillVerificationController";
 
 const router = Router();
 
-// GET /api/v1/skills - Get all skills
-router.get('/', optionalAuth, (req, res) => {
-  // TODO: Implement get all skills with filtering
-  res.json({
-    success: true,
-    data: {
-      message: 'Get all skills endpoint - Coming soon',
-      query: req.query,
-    },
-  });
-});
+// GET /api/v1/skills - Get all skills with filtering
+router.get(
+  "/",
+  optionalAuth,
+  validateRequest({ query: skillSchemas.searchSkills }),
+  skillsController.getAllSkills.bind(skillsController)
+);
 
 // GET /api/v1/skills/categories - Get skill categories
-router.get('/categories', (req, res) => {
-  // TODO: Implement get skill categories
-  res.json({
-    success: true,
-    data: {
-      message: 'Get skill categories endpoint - Coming soon',
-    },
-  });
-});
+router.get(
+  "/categories",
+  skillsController.getSkillCategories.bind(skillsController)
+);
 
 // POST /api/v1/skills/request - Request new skill
-router.post('/request', authenticateToken, (req, res) => {
-  // TODO: Implement skill request
-  res.json({
-    success: true,
-    data: {
-      message: 'Request new skill endpoint - Coming soon',
-      user: req.user,
-      skillRequest: req.body,
-    },
-  });
-});
+router.post(
+  "/request",
+  authenticateToken,
+  validateRequest({ body: skillSchemas.requestSkill }),
+  skillsController.requestNewSkill.bind(skillsController)
+);
 
-// GET /api/v1/users/:id/skills - Get user skills
-router.get('/users/:id', optionalAuth, validateRequest({ params: { id: commonSchemas.id } }), (req, res) => {
-  // TODO: Implement get user skills
-  res.json({
-    success: true,
-    data: {
-      message: 'Get user skills endpoint - Coming soon',
-      userId: req.params.id,
-      currentUser: req.user,
-    },
-  });
-});
+// GET /api/v1/skills/search/users - Search users by skills
+router.get(
+  "/search/users",
+  optionalAuth,
+  validateRequest({ query: skillSchemas.searchUsersBySkills }),
+  skillsController.searchUsersBySkills.bind(skillsController)
+);
 
-// POST /api/v1/users/skills - Add user skill
-router.post('/users/skills', authenticateToken, validateRequest({ body: skillSchemas.addUserSkill }), (req, res) => {
-  // TODO: Implement add user skill
-  res.json({
-    success: true,
-    data: {
-      message: 'Add user skill endpoint - Coming soon',
-      user: req.user,
-      skill: req.body,
-    },
-  });
-});
+// GET /api/v1/skills/users/:id - Get user skills
+router.get(
+  "/users/:id",
+  optionalAuth,
+  validateRequest({ params: commonSchemas.params.id }),
+  skillsController.getUserSkills.bind(skillsController)
+);
 
-// PUT /api/v1/users/skills/:id - Update user skill
-router.put('/users/skills/:id', authenticateToken, validateRequest({ 
-  params: { id: commonSchemas.id },
-  body: skillSchemas.updateUserSkill 
-}), (req, res) => {
-  // TODO: Implement update user skill
-  res.json({
-    success: true,
-    data: {
-      message: 'Update user skill endpoint - Coming soon',
-      user: req.user,
-      skillId: req.params.id,
-      updates: req.body,
-    },
-  });
-});
+// POST /api/v1/skills/users/skills - Add user skill
+router.post(
+  "/users/skills",
+  authenticateToken,
+  validateRequest({ body: skillSchemas.addUserSkill }),
+  skillsController.addUserSkill.bind(skillsController)
+);
 
-// DELETE /api/v1/users/skills/:id - Remove user skill
-router.delete('/users/skills/:id', authenticateToken, validateRequest({ params: { id: commonSchemas.id } }), (req, res) => {
-  // TODO: Implement remove user skill
-  res.json({
-    success: true,
-    data: {
-      message: 'Remove user skill endpoint - Coming soon',
-      user: req.user,
-      skillId: req.params.id,
-    },
-  });
-});
+// PUT /api/v1/skills/users/skills/:id - Update user skill
+router.put(
+  "/users/skills/:id",
+  authenticateToken,
+  validateRequest({
+    params: commonSchemas.params.id,
+    body: skillSchemas.updateUserSkill,
+  }),
+  skillsController.updateUserSkill.bind(skillsController)
+);
 
-// POST /api/v1/users/skills/:id/verify - Verify user skill
-router.post('/users/skills/:id/verify', authenticateToken, validateRequest({ params: { id: commonSchemas.id } }), (req, res) => {
-  // TODO: Implement skill verification
-  res.json({
-    success: true,
-    data: {
-      message: 'Verify user skill endpoint - Coming soon',
-      user: req.user,
-      skillId: req.params.id,
-    },
-  });
-});
+// DELETE /api/v1/skills/users/skills/:id - Remove user skill
+router.delete(
+  "/users/skills/:id",
+  authenticateToken,
+  validateRequest({ params: commonSchemas.params.id }),
+  skillsController.removeUserSkill.bind(skillsController)
+);
+
+// POST /api/v1/skills/users/skills/:id/verify - Request skill verification
+router.post(
+  "/users/skills/:id/verify",
+  authenticateToken,
+  validateRequest({
+    params: commonSchemas.params.id,
+    body: skillSchemas.requestVerification,
+  }),
+  skillVerificationController.requestVerification.bind(
+    skillVerificationController
+  )
+);
+
+// Skill Verification Routes
+// GET /api/v1/skills/verifications/requests - Get verification requests to review
+router.get(
+  "/verifications/requests",
+  authenticateToken,
+  skillVerificationController.getVerificationRequests.bind(
+    skillVerificationController
+  )
+);
+
+// GET /api/v1/skills/verifications/history - Get verification history
+router.get(
+  "/verifications/history",
+  authenticateToken,
+  skillVerificationController.getVerificationHistory.bind(
+    skillVerificationController
+  )
+);
+
+// GET /api/v1/skills/verifications/stats - Get verification statistics
+router.get(
+  "/verifications/stats",
+  authenticateToken,
+  skillVerificationController.getVerificationStats.bind(
+    skillVerificationController
+  )
+);
+
+// PUT /api/v1/skills/verifications/:id/respond - Respond to verification request
+router.put(
+  "/verifications/:id/respond",
+  authenticateToken,
+  validateRequest({
+    params: commonSchemas.params.id,
+    body: skillSchemas.respondToVerification,
+  }),
+  skillVerificationController.respondToVerification.bind(
+    skillVerificationController
+  )
+);
+
+// GET /api/v1/skills/:skillId/verification-status - Get skill verification status
+router.get(
+  "/:skillId/verification-status",
+  authenticateToken,
+  validateRequest({
+    params: Joi.object({ skillId: Joi.string().uuid().required() }),
+  }),
+  skillVerificationController.getSkillVerificationStatus.bind(
+    skillVerificationController
+  )
+);
+
+// GET /api/v1/skills/:skillId/potential-verifiers - Get potential verifiers for a skill
+router.get(
+  "/:skillId/potential-verifiers",
+  authenticateToken,
+  validateRequest({
+    params: Joi.object({ skillId: Joi.string().uuid().required() }),
+  }),
+  skillVerificationController.getPotentialVerifiers.bind(
+    skillVerificationController
+  )
+);
 
 export default router;

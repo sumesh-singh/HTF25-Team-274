@@ -3,6 +3,8 @@ import config from "@/config";
 import logger from "@/utils/logger";
 import { connectDatabase, disconnectDatabase } from "@/lib/prisma";
 import { scheduler } from "@/utils/scheduler";
+import { createServer } from "http";
+import { initializeSocket, closeSocket } from "@/lib/socket";
 
 // Handle uncaught exceptions
 process.on("uncaughtException", (error: Error) => {
@@ -25,11 +27,18 @@ const startServer = async () => {
     // Start scheduled tasks
     scheduler.start();
 
+    // Create HTTP server
+    const httpServer = createServer(app);
+
+    // Initialize Socket.io
+    await initializeSocket(httpServer);
+
     // Start server
-    const server = app.listen(config.port, () => {
+    const server = httpServer.listen(config.port, () => {
       logger.info(`🚀 SkillSync API server running on port ${config.port}`);
       logger.info(`📝 Environment: ${config.nodeEnv}`);
       logger.info(`🌐 CORS Origin: ${config.corsOrigin}`);
+      logger.info(`🔌 Socket.io server initialized`);
     });
 
     return server;
@@ -39,7 +48,16 @@ const startServer = async () => {
   }
 };
 
-const server = await startServer();
+let server: any;
+
+startServer()
+  .then((httpServer) => {
+    server = httpServer;
+  })
+  .catch((error) => {
+    logger.error("Failed to start server:", error);
+    process.exit(1);
+  });
 
 // Graceful shutdown
 const gracefulShutdown = (signal: string) => {
@@ -50,6 +68,13 @@ const gracefulShutdown = (signal: string) => {
 
     // Stop scheduled tasks
     scheduler.stop();
+
+    // Close Socket.io connections
+    try {
+      await closeSocket();
+    } catch (error) {
+      logger.error("Error closing Socket.io:", error);
+    }
 
     // Close database connections
     try {

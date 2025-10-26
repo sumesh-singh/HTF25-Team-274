@@ -4,20 +4,190 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#3b82f6" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="SkillSync" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- Apple Touch Icons -->
+    <link
+      rel="apple-touch-icon"
+      sizes="152x152"
+      href="/icons/icon-152x152.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/icons/icon-180x180.png"
+    />
+
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/icons/icon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/icons/icon-16x16.png"
+    />
+
     <title>SkillSync - Unlock Your Potential</title>
-    <meta name="description" content="Join a community of learners and mentors to share skills and grow together on SkillSync." />
+    <meta
+      name="description"
+      content="Join a community of learners and mentors to share skills and grow together on SkillSync."
+    />
+
+    <!-- Open Graph -->
     <meta property="og:title" content="SkillSync - Unlock Your Potential" />
-    <meta property="og:description" content="Join a community of learners and mentors to share skills and grow together on SkillSync." />
-    <meta property="og:image" content="https://img-wrapper.vercel.app/image?url=https://placehold.co/1200x630.png" />
-    <meta property="og:image:alt" content="A preview of the SkillSync platform dashboard." />
+    <meta
+      property="og:description"
+      content="Join a community of learners and mentors to share skills and grow together on SkillSync."
+    />
+    <meta
+      property="og:image"
+      content="https://img-wrapper.vercel.app/image?url=https://placehold.co/1200x630.png"
+    />
+    <meta
+      property="og:image:alt"
+      content="A preview of the SkillSync platform dashboard."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://skillsync.app" />
+
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="SkillSync - Unlock Your Potential" />
-    <meta name="twitter:description" content="Join a community of learners and mentors to share skills and grow together on SkillSync." />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    <meta
+      name="twitter:description"
+      content="Join a community of learners and mentors to share skills and grow together on SkillSync."
+    />
+    <meta
+      name="twitter:image"
+      content="https://img-wrapper.vercel.app/image?url=https://placehold.co/1200x630.png"
+    />
+
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Preconnect to API -->
+    <link rel="preconnect" href="http://localhost:3001" />
   </head>
   <body>
     <div id="root"></div>
+
+    <!-- Loading fallback -->
+    <noscript>
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 100vh;
+          font-family: Inter, sans-serif;
+        "
+      >
+        <div style="text-align: center">
+          <h1>SkillSync</h1>
+          <p>Please enable JavaScript to use SkillSync.</p>
+        </div>
+      </div>
+    </noscript>
+
     <script type="module" src="/src/main.tsx"></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("/sw.js")
+            .then((registration) => {
+              console.log("SW registered: ", registration);
+
+              // Check for updates
+              registration.addEventListener("updatefound", () => {
+                const newWorker = registration.installing;
+                if (newWorker) {
+                  newWorker.addEventListener("statechange", () => {
+                    if (
+                      newWorker.state === "installed" &&
+                      navigator.serviceWorker.controller
+                    ) {
+                      // New content is available, show update notification
+                      if (confirm("New version available! Reload to update?")) {
+                        newWorker.postMessage({ type: "SKIP_WAITING" });
+                        window.location.reload();
+                      }
+                    }
+                  });
+                }
+              });
+            })
+            .catch((registrationError) => {
+              console.log("SW registration failed: ", registrationError);
+            });
+        });
+
+        // Handle service worker updates
+        navigator.serviceWorker.addEventListener("controllerchange", () => {
+          window.location.reload();
+        });
+      }
+
+      // Install prompt
+      let deferredPrompt;
+      window.addEventListener("beforeinstallprompt", (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+
+        // Show install button or banner
+        const installBanner = document.createElement("div");
+        installBanner.innerHTML = `
+          <div style="position: fixed; bottom: 20px; left: 20px; right: 20px; background: #3b82f6; color: white; padding: 16px; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+            <div>
+              <strong>Install SkillSync</strong>
+              <p style="margin: 4px 0 0 0; font-size: 14px; opacity: 0.9;">Get the full app experience</p>
+            </div>
+            <div>
+              <button id="install-btn" style="background: rgba(255,255,255,0.2); border: none; color: white; padding: 8px 16px; border-radius: 4px; margin-right: 8px; cursor: pointer;">Install</button>
+              <button id="dismiss-btn" style="background: none; border: none; color: white; padding: 8px; cursor: pointer; opacity: 0.7;">✕</button>
+            </div>
+          </div>
+        `;
+
+        document.body.appendChild(installBanner);
+
+        document.getElementById("install-btn").addEventListener("click", () => {
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === "accepted") {
+              console.log("User accepted the install prompt");
+            }
+            deferredPrompt = null;
+            installBanner.remove();
+          });
+        });
+
+        document.getElementById("dismiss-btn").addEventListener("click", () => {
+          installBanner.remove();
+        });
+      });
+    </script>
+
+    <!-- Structured Data -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -28,6 +198,12 @@
         "offers": {
           "@type": "Offer",
           "price": "0"
+        },
+        "description": "Peer-to-peer learning platform for skill exchange",
+        "url": "https://skillsync.app",
+        "author": {
+          "@type": "Organization",
+          "name": "SkillSync Team"
         }
       }
     </script>

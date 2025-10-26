@@ -46,7 +46,7 @@ export class AuthController {
     req: Request<{}, ApiResponse, LoginRequest>,
     res: Response<ApiResponse>
   ) {
-    const identifier = req.body.email || req.ip;
+    const identifier = req.body.email || req.ip || "unknown";
 
     try {
       const result = await authService.login(req.body);
@@ -85,7 +85,10 @@ export class AuthController {
   }
 
   // POST /api/v1/auth/refresh
-  async refreshToken(req: Request, res: Response<ApiResponse>) {
+  async refreshToken(
+    req: Request,
+    res: Response<ApiResponse>
+  ): Promise<Response<ApiResponse> | void> {
     try {
       const { refreshToken } = req.body;
 
